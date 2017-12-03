@@ -6,19 +6,31 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class ListSubjectActivity extends AppCompatActivity {
-
-    String[] items;
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
     ListView listView;
-    EditText editText;
+    AutoCompleteTextView editText;
+    DatabaseReference databaseReference;
+    String fac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,43 +39,34 @@ public class ListSubjectActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.list_view);
         editText = findViewById(R.id.txt_search);
-
+        fac = getIntent().getStringExtra("fac");
         initList();
-        editText.addTextChangedListener(new TextWatcher() {
+        //get firebase db reference
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().equals("")){
-                    initList();
-                }else{
-                    searchItem(charSequence.toString());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).getChildren();
+                for (DataSnapshot child: children){
+                    String course_name = String.valueOf(child.child("course_name").getValue());
+                    String course_id = String.valueOf(child.getKey());
+                    listItems.add(course_id + " " + course_name);
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
 
-    public void searchItem(String textToSearch){
-        for(String item:items){
-            if(!item.contains(textToSearch)){
-                listItems.remove(item);
-            }
-        }
-    }
-
     public void initList(){
-        items = new String[]{"901235123 Thailand", "901235456 Canada", "901295789 Japan",
-                "901223987 USA", "901265654 Korea", "901235321 Philippines"};
-        listItems = new ArrayList<>(Arrays.asList(items));
+        listItems = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtItem, listItems);
+        editText.setAdapter(adapter);
         listView.setAdapter(adapter);
     }
 }

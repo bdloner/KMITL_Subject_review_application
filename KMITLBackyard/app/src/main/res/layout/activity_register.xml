@@ -28,8 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:text="สมัครสมาชิก"
             android:textColor="#ffffff"
             android:textSize="30dp"
@@ -40,8 +38,8 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/email_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="8dp"
             android:textColorHint="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffffff"
-                android:drawableLeft="@drawable/ic_login_password"
+                android:drawableLeft="@drawable/ic_login_email"
                 android:hint="อีเมล"
                 android:textColor="#ffffff" />
 
@@ -61,7 +59,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/password_layout"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             android:textColorHint="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.681"
@@ -73,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffffff"
-                android:drawableLeft="@drawable/ic_login_email"
+                android:drawableLeft="@drawable/ic_login_password"
                 android:hint="รหัสผ่าน"
                 android:textColor="#ffffff" />
 
@@ -82,7 +80,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/confirm_password_layout"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="55dp"
             android:textColorHint="#ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,8 +91,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffffff"
-                android:drawableLeft="@drawable/ic_login_email"
+                android:drawableLeft="@drawable/ic_login_password"
                 android:hint="ยืนยันรหัสผ่าน"
+                android:textColor="#ffffff" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nickname_layout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:textColorHint="#ffffff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_layout">
+
+            <EditText
+                android:id="@+id/reg_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffffff"
+
+                android:hint="ชื่อเล่น"
                 android:textColor="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
@@ -104,21 +122,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="44dp"
             android:background="@drawable/button_login"
             android:text="สมัครสมาชิก"
             android:textColor="#ffffff"
             app:layout_constraintBottom_toTopOf="@+id/btn_back"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_layout"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/button_login"
             android:text="ย้อนกลับ"
             android:textColor="#ffffff"
