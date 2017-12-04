@@ -1,10 +1,13 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.LauncherActivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -24,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class ListSubjectActivity extends AppCompatActivity {
+public class ListSubjectActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
     ListView listView;
@@ -39,8 +42,10 @@ public class ListSubjectActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.list_view);
         editText = findViewById(R.id.txt_search);
+        listView.setOnItemClickListener(this);
         fac = getIntent().getStringExtra("fac");
         initList();
+
         //get firebase db reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -61,12 +66,23 @@ public class ListSubjectActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
 
     public void initList(){
         listItems = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtItem, listItems);
         editText.setAdapter(adapter);
         listView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, SubjectPostActivity.class);
+//        Toast.makeText(getApplicationContext(), listItems.get(position), Toast.LENGTH_SHORT).show();
+        intent.putExtra("subjectSelect", listItems.get(position));
+        startActivities(new Intent[]{intent});
     }
 }
