@@ -2,6 +2,7 @@ package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,11 +27,20 @@ public class LoginActivity extends Activity {
     private EditText loginEmail, loginPassword;
     private Button btnLogin, btnRegister;
     DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+    private String inpemail;
+    private String inppassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        firebaseAuth =FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
 
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
@@ -41,28 +55,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterable<DataSnapshot> children = dataSnapshot.child("user").getChildren();
-                        for (DataSnapshot child: children){
-                            String dbemail = String.valueOf(child.child("email").getValue());
-                            String dbpassword = String.valueOf(child.child("password").getValue());
-                            String inpemail = loginEmail.getText().toString();
-                            String inppassword = loginPassword.getText().toString();
-                            if (dbemail.equals(inpemail) && dbpassword.equals(inppassword)){
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.putExtra("uid",child.getKey());
-                                startActivity(intent);
-                                return;
-                            }
-                        }
-                        Toast.makeText(getApplicationContext(), "อีเมลล์หรือรหัสผ่านผิด", Toast.LENGTH_SHORT).show();
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                login();
             }
         });
 
@@ -71,6 +64,21 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void login() {
+        inpemail = loginEmail.getText().toString();
+        inppassword = loginPassword.getText().toString();
+        firebaseAuth.signInWithEmailAndPassword(inpemail, inppassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                     startActivity(intent);
+                     finish();
+                }
             }
         });
     }

@@ -38,27 +38,27 @@ public class MeFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference();
         profile_email = v.findViewById(R.id.profile_email);
         profile_nickname = v.findViewById(R.id.profile_nickname);
-        uid = getActivity().getIntent().getStringExtra("uid");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.child("user").child(uid).getChildren();
-                for (DataSnapshot child: children){
-                    if (child.getKey().equals("email")){
-                        profile_email.setText(String.valueOf(child.getValue()));
-                    }
-                    else if(child.getKey().equals("nickname")){
-                        profile_nickname.setText(String.valueOf(child.getValue()));
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        uid = getActivity().getIntent().getStringExtra("uid");
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Iterable<DataSnapshot> children = dataSnapshot.child("user").child(uid).getChildren();
+//                for (DataSnapshot child: children){
+//                    if (child.getKey().equals("email")){
+//                        profile_email.setText(String.valueOf(child.getValue()));
+//                    }
+//                    else if(child.getKey().equals("nickname")){
+//                        profile_nickname.setText(String.valueOf(child.getValue()));
+//                    }
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
         return v;
     }
 
