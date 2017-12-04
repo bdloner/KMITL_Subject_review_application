@@ -36,6 +36,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth =FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
         if(firebaseAuth.getCurrentUser() != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -71,12 +72,16 @@ public class LoginActivity extends Activity {
     private void login() {
         inpemail = loginEmail.getText().toString();
         inppassword = loginPassword.getText().toString();
+        if (inppassword.equals("") || inpemail.equals("")){
+            Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
+        }
         firebaseAuth.signInWithEmailAndPassword(inpemail, inppassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                      startActivity(intent);
+//                     Log.i("authasda", firebaseAuth.getCurrentUser().getEmail()+  " "+ firebaseAuth.getCurrentUser().getDisplayName());
                      finish();
                 }
             }

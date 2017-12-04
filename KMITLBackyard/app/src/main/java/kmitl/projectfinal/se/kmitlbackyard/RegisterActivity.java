@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,15 +103,28 @@ public class RegisterActivity extends Activity {
     }
 
     private void addData() {
-        Map<String, Object> his = new HashMap();
-        his.put("email", String.valueOf(sRegEmail));
-        his.put("password", String.valueOf(sRegPassword));
-        his.put("nickname", String.valueOf(sRegNickname));
-        his.put("image", "image");
-        mFirebase.child("user").push().setValue(his);
+//        Map<String, Object> his = new HashMap();
+//        his.put("email", String.valueOf(sRegEmail));
+//        his.put("password", String.valueOf(sRegPassword));
+//        his.put("nickname", String.valueOf(sRegNickname));
+//        his.put("image", "image");
+//        mFirebase.child("user").push().setValue(his);
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                .setDisplayName(sRegNickname)
+                .build();
+        user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Add Data success", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public void registerUser(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseAuth.createUserWithEmailAndPassword(sRegEmail.trim(),sRegPassword.trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -118,7 +133,7 @@ public class RegisterActivity extends Activity {
                             addData();
                             Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Could not register", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), task.getResult().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
