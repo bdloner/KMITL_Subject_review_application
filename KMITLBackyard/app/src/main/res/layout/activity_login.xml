@@ -55,6 +55,7 @@
                 android:drawableLeft="@drawable/ic_login_email"
                 android:hint="อีเมล"
                 android:textColor="#ffffff"
+                android:maxLength="20"
                 android:backgroundTint="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
@@ -74,7 +75,9 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffffff"
                 android:drawableLeft="@drawable/ic_login_password"
+                android:inputType="textPassword"
                 android:hint="รหัสผ่าน"
+                android:maxLength="20"
                 android:textColor="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>

@@ -40,6 +40,9 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_subject);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("วิศวกรรมศาสตร์");
+
         listView = findViewById(R.id.list_view);
         editText = findViewById(R.id.txt_search);
         listView.setOnItemClickListener(this);

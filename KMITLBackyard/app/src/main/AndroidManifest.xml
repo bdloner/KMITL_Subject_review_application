@@ -25,8 +25,8 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ListSubjectActivity" />
-        <activity android:name=".SubjectPostActivity"></activity>
+        <activity android:name=".ListSubjectActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name=".SubjectPostActivity" android:parentActivityName=".SubjectPostActivity"></activity>
     </application>
 
 </manifest>
