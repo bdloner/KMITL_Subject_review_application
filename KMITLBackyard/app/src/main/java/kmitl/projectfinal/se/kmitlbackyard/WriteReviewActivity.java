@@ -31,6 +31,7 @@ public class WriteReviewActivity extends AppCompatActivity {
             case R.id.item_menu_next:
                 Intent intent = new Intent(this, AddImageReviewActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case android.R.id.home:
                 this.finish();

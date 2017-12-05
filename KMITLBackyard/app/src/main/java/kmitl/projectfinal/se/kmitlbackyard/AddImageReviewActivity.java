@@ -48,6 +48,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case android.R.id.home:
                 this.finish();

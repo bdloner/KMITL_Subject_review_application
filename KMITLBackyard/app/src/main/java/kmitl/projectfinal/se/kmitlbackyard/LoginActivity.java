@@ -58,10 +58,8 @@ public class LoginActivity extends Activity {
         }
 
         forgotPass = findViewById(R.id.forgot_pass);
-
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
-
         btnLogin = findViewById(R.id.btn_login);
         btnRegister = findViewById(R.id.btn_register);
 
@@ -93,18 +91,35 @@ public class LoginActivity extends Activity {
                 dialog.setCancelable(true);
                 dialog.show();
 
-                EditText editEmail = dialog.findViewById(R.id.edit_email);
+                final EditText editEmail = dialog.findViewById(R.id.edit_email);
 
                 Button resetEmailBtn = dialog.findViewById(R.id.reset_email_btn);
 
                 resetEmailBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String emailReset= editEmail.getText().toString();
+                        resetPassword(emailReset);
                         dialog.dismiss();
                     }
                 });
             }
         });
+    }
+
+    private void resetPassword(String emailReset) {
+        firebaseAuth.sendPasswordResetEmail(emailReset)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "รีพาสเวิร์ดสำเร็จ กรุณาตรวจสอบอีเมลล์ของท่าน", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "กรุณาลองอีกครั้ง", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void login() {

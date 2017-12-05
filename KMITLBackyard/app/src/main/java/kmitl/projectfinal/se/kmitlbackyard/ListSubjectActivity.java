@@ -41,14 +41,14 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         setContentView(R.layout.activity_list_subject);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("วิศวกรรมศาสตร์");
+
 
         listView = findViewById(R.id.list_view);
         editText = findViewById(R.id.txt_search);
         listView.setOnItemClickListener(this);
         fac = getIntent().getStringExtra("fac");
         initList();
-
+        getSupportActionBar().setTitle(fac);
         //get firebase db reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
