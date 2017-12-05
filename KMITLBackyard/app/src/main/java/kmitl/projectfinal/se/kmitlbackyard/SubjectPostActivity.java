@@ -1,7 +1,10 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SubjectPostActivity extends AppCompatActivity {
 
+    private Button writeReviewBtn;
+
     private String subjectSelect = "";
     private String uid = "";
     DatabaseReference databaseReference;
@@ -27,6 +32,10 @@ public class SubjectPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_post);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        writeReviewBtn = findViewById(R.id.write_review_btn);
+
         post_nickname = findViewById(R.id.post_nickname);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -36,5 +45,12 @@ public class SubjectPostActivity extends AppCompatActivity {
         subjectSelect = getIntent().getStringExtra("subjectSelect");
         Toast.makeText(getApplicationContext(), subjectSelect, Toast.LENGTH_SHORT).show();
 
+        writeReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), WriteReviewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

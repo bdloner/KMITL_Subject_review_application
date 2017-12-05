@@ -1,6 +1,7 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +37,9 @@ public class LoginActivity extends Activity {
     private String inpemail;
     private String inppassword;
     private EmptyView emptyView;
+    private CustomTextView forgotPass;
+    private Dialog dialog;
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[kmitl.-]{5}+\\.[ac]{2}+\\.[th]{2}$", Pattern.CASE_INSENSITIVE);
 
@@ -43,7 +48,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth =FirebaseAuth.getInstance();
-        firebaseAuth.signOut();
+//        firebaseAuth.signOut();
 
         emptyView = findViewById(R.id.layout_content_container);
 
@@ -52,6 +57,7 @@ public class LoginActivity extends Activity {
             startActivity(intent);
         }
 
+        forgotPass = findViewById(R.id.forgot_pass);
 
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
@@ -75,6 +81,28 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(LoginActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.custom_dialog_forgot_pass);
+                dialog.setCancelable(true);
+                dialog.show();
+
+                EditText editEmail = dialog.findViewById(R.id.edit_email);
+
+                Button resetEmailBtn = dialog.findViewById(R.id.reset_email_btn);
+
+                resetEmailBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
