@@ -48,7 +48,6 @@ public class SubjectPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_post);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         writeReviewBtn = findViewById(R.id.write_review_btn);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -56,6 +55,7 @@ public class SubjectPostActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listPosts = new ArrayList<>();
         queryData();
+
 
         post_nickname = findViewById(R.id.post_nickname);
         firebaseAuth = FirebaseAuth.getInstance();

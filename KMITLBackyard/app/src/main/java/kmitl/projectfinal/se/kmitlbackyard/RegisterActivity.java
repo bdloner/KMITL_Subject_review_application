@@ -48,6 +48,7 @@ public class RegisterActivity extends Activity {
     private EmptyView emptyView;
 
     String checkEmail;
+    private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[kmitl.-]{5}+\\.[ac]{2}+\\.[th]{2}$", Pattern.CASE_INSENSITIVE);
@@ -59,6 +60,7 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
         mFirebase = new Firebase("https://kmitlbackyard.firebaseio.com/");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         regEmail = findViewById(R.id.reg_email);
         regPassword = findViewById(R.id.reg_password);
         regConfirmPassword = findViewById(R.id.reg_confirm_password);
@@ -127,6 +129,11 @@ public class RegisterActivity extends Activity {
                 }
             }
         });
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", String.valueOf(sRegEmail));
+        result.put("nickname", String.valueOf(sRegNickname));
+        mDatabase.child("user").child(user.getUid()).setValue(result);
     }
 
     public void registerUser(){

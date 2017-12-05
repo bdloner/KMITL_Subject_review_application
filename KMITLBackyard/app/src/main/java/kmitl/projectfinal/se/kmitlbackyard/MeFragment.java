@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,7 @@ public class MeFragment extends Fragment {
     CircleImageView circleImageView2;
     private static final int CHOOSE_IMAGE = 101;
     FirebaseUser user;
+    private DatabaseReference mDatabase;
     FirebaseDatabase firebaseDatabase;
     Button save_btn;
 
@@ -71,6 +73,7 @@ public class MeFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         profile_email = v.findViewById(R.id.profile_email);
         circleImageView2 = v.findViewById(R.id.circleImageView2);
         profile_nickname = v.findViewById(R.id.profile_nickname);
@@ -113,6 +116,11 @@ public class MeFragment extends Fragment {
                         Toast.makeText(getContext(),"อัพเดทข้อมูลสำเร็จ", Toast.LENGTH_SHORT).show();
                     }
                 });
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("email", String.valueOf(profile_email.getText().toString()));
+                result.put("nickname", String.valueOf(nick));
+
+                mDatabase.child("user").child(user.getUid()).setValue(result);
             }
         });
         return v;
@@ -154,6 +162,7 @@ public class MeFragment extends Fragment {
                     profileImageUrl = taskSnapshot.getDownloadUrl().toString();
                     changeImageUrlInAuth(taskSnapshot.getDownloadUrl());
                     Picasso.with(getContext()).load(profileImageUrl).fit().centerCrop().into(circleImageView2);
+                    mDatabase.child("user").child(user.getUid()).child("profileImgLink").setValue(profileImageUrl);
 //                    Toast.makeText(getContext(), "Success to upload profile image", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
