@@ -92,7 +92,7 @@ public class SubjectPostActivity extends AppCompatActivity {
 
                 );
                 if(newPost.get("subject_id").toString().equals(subjectSelect.split(" ")[0])){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
-                    listPosts.add(postItem);
+                    listPosts.add(0, postItem);
                     adapter = new PostAdapter(listPosts, getApplication());
                     recyclerView.setAdapter(adapter);
                 }
