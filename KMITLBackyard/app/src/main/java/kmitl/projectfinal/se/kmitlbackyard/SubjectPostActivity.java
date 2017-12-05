@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ public class SubjectPostActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), WriteReviewActivity.class);
                 intent.putExtra("subjectSelect", subjectSelect);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -89,8 +91,8 @@ public class SubjectPostActivity extends AppCompatActivity {
                         newPost.get("uid").toString()
 
                 );
-                if(newPost.get("subject_id").toString().equals("01006001")){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
-                    listPosts.add(0, postItem);
+                if(newPost.get("subject_id").toString().equals(subjectSelect.split(" ")[0])){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
+                    listPosts.add(postItem);
                     adapter = new PostAdapter(listPosts, getApplication());
                     recyclerView.setAdapter(adapter);
                 }

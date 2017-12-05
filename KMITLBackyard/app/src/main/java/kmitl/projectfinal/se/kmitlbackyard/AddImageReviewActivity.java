@@ -114,6 +114,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
+
                 uploadImageToFirebaseStorage();
 
                 //add post database
@@ -134,7 +135,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 result.put("timeStamp", timeStamp);
                 result.put("score_num", score_num);
                 mDatabase.child("post").push().setValue(result);
-
+                intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
                 finish();
                 break;
