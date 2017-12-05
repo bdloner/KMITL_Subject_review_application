@@ -23,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santalu.emptyview.EmptyView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginActivity extends Activity {
 
     private EditText loginEmail, loginPassword;
@@ -32,6 +35,8 @@ public class LoginActivity extends Activity {
     private String inpemail;
     private String inppassword;
     private EmptyView emptyView;
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[kmitl.-]{5}+\\.[ac]{2}+\\.[th]{2}$", Pattern.CASE_INSENSITIVE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,6 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                emptyView.showLoading();
                 login();
             }
         });
@@ -78,9 +82,17 @@ public class LoginActivity extends Activity {
     private void login() {
         inpemail = loginEmail.getText().toString();
         inppassword = loginPassword.getText().toString();
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(inpemail);
         if (inppassword.equals("") || inpemail.equals("")){
             Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
+            return;
         }
+        else if(!matcher.find()){
+            Toast.makeText(getApplicationContext(), "กรุณากรอกเมลล์ให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+            loginPassword.setText("");
+            return;
+        }
+        emptyView.showLoading();
         firebaseAuth.signInWithEmailAndPassword(inpemail, inppassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
