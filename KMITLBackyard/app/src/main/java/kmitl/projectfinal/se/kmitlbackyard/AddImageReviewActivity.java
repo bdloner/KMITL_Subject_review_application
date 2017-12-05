@@ -40,6 +40,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
     private EditText post_title;
     private static final int CHOOSE_IMAGE = 101;
     private DatabaseReference mDatabase;
+    String key;
     HashMap<String, Object> result = new HashMap<>();
     String subject_id;
     Uri uriUploadImage;
@@ -122,7 +123,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SubjectPostActivity.class);
 
                 //add post database
-                String key = mDatabase.push().getKey();
+                key = mDatabase.push().getKey();
 
                 String score = getIntent().getStringExtra("rating");
                 String description = getIntent().getStringExtra("comment");
@@ -138,8 +139,8 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 result.put("subject_id", subject_id);
                 result.put("timeStamp", timeStamp);
                 result.put("score_num", score_num);
-                result.put("postImgLink", uploadImageToFirebaseStorage(key));
-                Log.i("sldfmksdkmfsdf",result+"");
+                 uploadImageToFirebaseStorage(key);
+                //Log.i("sldfmksdkmfsdf",result+"");
                 mDatabase.child("post").child(key).setValue(result);
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
@@ -153,7 +154,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
     }
 
 
-    private String uploadImageToFirebaseStorage(final String key) {
+    private void uploadImageToFirebaseStorage(final String key) {
         final StorageReference uploadImageRef =
                 FirebaseStorage.getInstance().getReference("post_review_pic/"+key+".jpg");
         final Uri[] downloadUrl = new Uri[1];
@@ -162,12 +163,12 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     downloadUrl[0] = taskSnapshot.getDownloadUrl();
-                    result.put("postImgLink", downloadUrl[0] +"");
-
+                    //result.put("postImgLink", downloadUrl[0] +"");
+                    mDatabase.child("post").child(key).child("postImgLink").setValue(String.valueOf(downloadUrl[0]));
                     Log.i("sldfmksdkmfsdf", downloadUrl[0] +"");
                 }
             });
         }
-        return downloadUrl[0]+"";
+       // return downloadUrl[0]+"";
     }
 }
