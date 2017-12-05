@@ -58,10 +58,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         interFlightBtn = v.findViewById(R.id.inter_flight_btn);
         liberalArtsBtn = v.findViewById(R.id.liberal_arts_btn);
         seach_subject = v.findViewById(R.id.seach_subject);
+
         adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, R.id.txtItem, listItems);
         seach_subject.setAdapter(adapter);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -160,7 +162,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
 
-    }
+        }
 
     }
 

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santalu.emptyview.EmptyView;
 
 public class LoginActivity extends Activity {
 
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity {
     private FirebaseAuth firebaseAuth;
     private String inpemail;
     private String inppassword;
+    private EmptyView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         firebaseAuth =FirebaseAuth.getInstance();
         firebaseAuth.signOut();
+
+        emptyView = findViewById(R.id.layout_content_container);
+
         if(firebaseAuth.getCurrentUser() != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
@@ -56,6 +61,7 @@ public class LoginActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                emptyView.showLoading();
                 login();
             }
         });

@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.santalu.emptyview.EmptyView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,8 @@ public class RegisterActivity extends Activity {
     private Firebase mFirebase;
     private List<String> mChats = new ArrayList<String>();
     private ArrayAdapter<String> mAdapter;
+    private EmptyView emptyView;
+
     String checkEmail;
     private FirebaseAuth firebaseAuth;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
@@ -60,6 +63,8 @@ public class RegisterActivity extends Activity {
         regPassword = findViewById(R.id.reg_password);
         regConfirmPassword = findViewById(R.id.reg_confirm_password);
         regNickname = findViewById(R.id.reg_nickname);
+
+        emptyView = findViewById(R.id.layout_content_container);
 
         btnRegister = findViewById(R.id.btn_register);
         btnBack = findViewById(R.id.btn_back);
@@ -89,6 +94,7 @@ public class RegisterActivity extends Activity {
                     regConfirmPassword.setText("");
                 }
                 else {
+                    emptyView.showLoading();
                     registerUser();
                 }
             }
@@ -131,6 +137,9 @@ public class RegisterActivity extends Activity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             addData();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
                             Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(), task.getResult().toString(), Toast.LENGTH_SHORT).show();

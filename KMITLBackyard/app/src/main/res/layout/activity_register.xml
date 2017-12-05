@@ -8,6 +8,13 @@
     android:padding="30dp"
     tools:context="kmitl.projectfinal.se.kmitlbackyard.LoginActivity">
 
+    <com.santalu.emptyview.EmptyView
+        android:id="@+id/layout_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadingText="กำลังโหลดข้อมูล"
+        app:loadingTextColor="#ffffff">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ffffff"
                 android:drawableLeft="@drawable/ic_login_email"
-                android:hint="อีเมล"
+                android:hint="อีเมล @kmitl.ac.th"
                 android:maxLength="20"
                 android:textColor="#ffffff" />
 
@@ -147,5 +154,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
+
+    </com.santalu.emptyview.EmptyView>
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context="kmitl.projectfinal.se.kmitlbackyard.MeFragment">
 
+    <com.santalu.emptyview.EmptyView
+        android:id="@+id/layout_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadingText="กำลังบันทึกข้อมูล"
+        app:loadingTextColor="@color/colorAccent">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,6 +42,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/email_profile"
@@ -45,7 +53,9 @@
             android:id="@+id/profile_email"
             android:layout_width="247dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
             android:layout_marginEnd="24dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:text="58070118@kmitl.ac.th"
@@ -117,5 +127,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
+
+    </com.santalu.emptyview.EmptyView>
 
 </FrameLayout>

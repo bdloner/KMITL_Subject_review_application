@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.santalu.emptyview.EmptyView;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -59,6 +60,8 @@ public class MeFragment extends Fragment {
     FirebaseDatabase firebaseDatabase;
     Button save_btn;
 
+    private EmptyView emptyView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class MeFragment extends Fragment {
         circleImageView2 = v.findViewById(R.id.circleImageView2);
         profile_nickname = v.findViewById(R.id.profile_nickname);
         save_btn =  v.findViewById(R.id.save_btn);
+        emptyView = v.findViewById(R.id.layout_content_container);
+
         user = firebaseAuth.getCurrentUser();
         setImageProfilePic();
         profile_email.setText(user.getEmail());
@@ -100,9 +105,11 @@ public class MeFragment extends Fragment {
                 UserProfileChangeRequest userProfileChangeRequest =  new UserProfileChangeRequest.Builder()
                         .setDisplayName(nick)
                         .build();
+                emptyView.showLoading();
                 user.updateProfile(userProfileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        emptyView.showContent();
                         Toast.makeText(getContext(),"อัพเดทข้อมูลสำเร็จ", Toast.LENGTH_SHORT).show();
                     }
                 });
