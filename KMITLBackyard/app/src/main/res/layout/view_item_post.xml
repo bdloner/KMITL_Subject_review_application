@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|top">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cardItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/post_love"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginStart="56dp"
+                        android:background="@drawable/love" />
+
+                    <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                        android:id="@+id/amount_love"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_toEndOf="@+id/post_love"
+                        android:layout_toRightOf="@+id/post_love"
+                        android:text="13"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:id="@+id/post_comment"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignTop="@+id/post_love"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginStart="56dp"
+                        android:layout_toEndOf="@+id/amount_love"
+                        android:layout_toRightOf="@+id/amount_love"
+                        android:background="@drawable/commented" />
+
+                    <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                        android:id="@+id/amount_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/amount_love"
+                        android:layout_alignBottom="@+id/amount_love"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_toEndOf="@+id/post_comment"
+                        android:layout_toRightOf="@+id/post_comment"
+                        android:text="5"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:id="@+id/post_view"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignTop="@+id/post_comment"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginStart="56dp"
+                        android:layout_toEndOf="@+id/amount_comment"
+                        android:layout_toRightOf="@+id/amount_comment"
+                        android:background="@drawable/view" />
+
+                    <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                        android:id="@+id/amount_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/amount_love"
+                        android:layout_alignBottom="@+id/amount_love"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginStart="11dp"
+                        android:layout_toEndOf="@+id/post_view"
+                        android:layout_toRightOf="@+id/post_view"
+                        android:text="365"
+                        android:textSize="18dp" />
+
+                </RelativeLayout>
+
+
+            </FrameLayout>
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="11dp"
+                android:background="@drawable/user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/post_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/image_icon"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@+id/image_icon"
+                android:layout_toRightOf="@+id/image_icon"
+                android:text="Nickname"
+                android:textColor="#000000"
+                app:layout_constraintStart_toEndOf="@+id/image_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/post_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_nickname"
+                android:layout_alignStart="@+id/post_nickname"
+                android:layout_below="@+id/post_nickname"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_icon"
+                app:layout_constraintTop_toBottomOf="@+id/post_nickname"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/post_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="หัวข้อการรีวิว"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+
+                android:id="@+id/post_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:text="รายละเอียดการรีวิว กกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกก อ่านต่อ>>"
+                android:maxLines="3"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/post_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="โพสต์เมื่อ 2 ชม.ที่แล้ว"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>

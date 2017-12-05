@@ -25,14 +25,14 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_post, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final PostModel listPost = postLists.get(position);
-        holder.textview1.setText(listPost.getDescription());
+//        final PostModel listPost = postLists.get(position);
+//        holder.textview1.setText(listPost.getDescription());
     }
 
     @Override
@@ -41,11 +41,11 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView textview1;
+//        public TextView textview1;
         public ViewHolder(View itemView) {
             super(itemView);
-            context = itemView.getContext();
-            textview1 = itemView.findViewById(R.id.txtItem);
+//            context = itemView.getContext();
+//            textview1 = itemView.findViewById(R.id.txtItem);
         }
     }
 }
