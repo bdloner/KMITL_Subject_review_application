@@ -16,6 +16,8 @@ import android.widget.FrameLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class AddImageReviewActivity extends AppCompatActivity {
 
@@ -34,6 +37,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
     private CustomTextView desc_post;
     private EditText post_title;
     private static final int CHOOSE_IMAGE = 101;
+    private DatabaseReference mDatabase;
     Uri uriUploadImage;
 
     @Override
@@ -50,6 +54,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
         desc_post = findViewById(R.id.desc_post);
         post_title= findViewById(R.id.post_title);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         showMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +125,16 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 String timeStamp = getCurrentTime();
                 String score_num = "0";
 
-                
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("score", score);
+                result.put("description", description);
+                result.put("title", title);
+                result.put("uid", uid);
+                result.put("subject_id", subject_id);
+                result.put("timeStamp", timeStamp);
+                result.put("score_num", score_num);
+                mDatabase.child("post").push().setValue(result);
+
                 startActivity(intent);
                 finish();
                 break;
