@@ -145,6 +145,12 @@ public class LoginActivity extends Activity {
 //                     Log.i("authasda", firebaseAuth.getCurrentUser().getEmail()+  " "+ firebaseAuth.getCurrentUser().getDisplayName());
                      finish();
                 }
+                else {
+                    Toast.makeText(getApplicationContext(), "กรุณากรอกอีเมลล์/พาสเวิร์ดให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

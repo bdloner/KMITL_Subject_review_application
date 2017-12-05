@@ -5,8 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.RatingBar;
 
 public class WriteReviewActivity extends AppCompatActivity {
+
+    private EditText comment;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +20,9 @@ public class WriteReviewActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("เขียนรีวิววิชาเรียน");
+
+        comment = findViewById(R.id.comment);
+        ratingBar = findViewById(R.id.ratingBar);
 
     }
 
@@ -30,6 +38,9 @@ public class WriteReviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item_menu_next:
                 Intent intent = new Intent(this, AddImageReviewActivity.class);
+                intent.putExtra("comment", comment.getText().toString());
+                intent.putExtra("rating", String.valueOf(ratingBar.getRating()));
+                intent.putExtra("subjectSelect", getIntent().getStringExtra("subjectSelect"));
                 startActivity(intent);
                 finish();
                 break;
