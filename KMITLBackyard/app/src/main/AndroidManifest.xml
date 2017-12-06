@@ -23,29 +23,32 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".RegisterActivity" />
-
         <activity
             android:name=".ListSubjectActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SubjectPostActivity"
             android:parentActivityName=".SubjectPostActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".WriteReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WriteReviewActivity"
             android:parentActivityName=".SubjectPostActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".AddImageReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddImageReviewActivity"
             android:parentActivityName=".WriteReviewActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CommentActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ViewPostActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

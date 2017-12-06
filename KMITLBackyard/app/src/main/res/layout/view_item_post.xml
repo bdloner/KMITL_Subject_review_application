@@ -8,8 +8,9 @@
     android:layout_gravity="center|top">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="250dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -41,15 +42,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <Button
                         android:id="@+id/post_love"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="56dp"
-                        android:layout_marginStart="56dp"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
                         android:background="@drawable/love" />
 
                     <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
@@ -64,10 +65,10 @@
                         android:text="13"
                         android:textSize="18dp" />
 
-                    <ImageView
+                    <Button
                         android:id="@+id/post_comment"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_alignTop="@+id/post_love"
                         android:layout_marginLeft="56dp"
                         android:layout_marginStart="56dp"
@@ -90,8 +91,8 @@
 
                     <ImageView
                         android:id="@+id/post_view"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_alignTop="@+id/post_comment"
                         android:layout_marginLeft="56dp"
                         android:layout_marginStart="56dp"
@@ -129,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/post_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,6 +140,7 @@
                 android:layout_toEndOf="@+id/image_icon"
                 android:layout_toRightOf="@+id/image_icon"
                 android:text="Nickname"
+                android:textSize="20dp"
                 android:textColor="#000000"
                 app:layout_constraintStart_toEndOf="@+id/image_icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -174,6 +176,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/image_icon" />
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/post_subjet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="ชื่อวิชา"
+                android:textColor="#000000"
+                android:textSize="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
 
                 android:id="@+id/post_desc"
                 android:layout_width="match_parent"
@@ -181,14 +198,16 @@
                 android:layout_alignLeft="@+id/post_rating"
                 android:layout_alignStart="@+id/post_rating"
                 android:layout_below="@+id/post_rating"
-                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
-                android:text="รายละเอียดการรีวิว กกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกก อ่านต่อ>>"
                 android:maxLines="3"
+                android:text="รายละเอียดการรีวิว กกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกก อ่านต่อ>>"
                 android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_title" />
+                app:layout_constraintTop_toBottomOf="@+id/post_subjet" />
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/post_date"
@@ -197,7 +216,7 @@
                 android:layout_alignLeft="@+id/post_rating"
                 android:layout_alignStart="@+id/post_rating"
                 android:layout_below="@+id/post_rating"
-                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:text="โพสต์เมื่อ 2 ชม.ที่แล้ว"
                 android:textSize="18dp"
