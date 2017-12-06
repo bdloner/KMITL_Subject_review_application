@@ -92,10 +92,11 @@ public class SubjectPostActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                String post_id = dataSnapshot.getKey();
                 PostModel postItem = new PostModel(
                         newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
                         newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
-                        newPost.get("uid").toString()
+                        newPost.get("uid").toString(), post_id
 
                 );
                 if(newPost.get("subject_id").toString().equals(subjectSelect)){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ

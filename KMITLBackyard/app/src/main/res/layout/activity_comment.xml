@@ -106,6 +106,7 @@
 
             <Button
                 android:id="@+id/ava_send"
+                android:onClick="sendComment"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="8dp"

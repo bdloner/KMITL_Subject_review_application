@@ -12,15 +12,30 @@ public class PostModel {
     private String timeStamp;
     private String title;
     private String uid;
+    private String post_id;
 
+<<<<<<< HEAD
     public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid) {
         this.description = description;
+=======
+    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid, String post_id) {
+        this.description = description;
+        this.post_id = post_id;
+>>>>>>> origin/master
         this.score = score;
         this.score_num = score_num;
         this.subject_id = subject_id;
         this.timeStamp = timeStamp;
         this.title = title;
         this.uid = uid;
+    }
+
+    public String getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
     }
 
     public String getDescription() {
