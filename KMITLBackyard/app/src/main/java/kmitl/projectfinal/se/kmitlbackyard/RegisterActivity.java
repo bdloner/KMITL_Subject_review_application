@@ -133,6 +133,7 @@ public class RegisterActivity extends Activity {
         HashMap<String, Object> result = new HashMap<>();
         result.put("email", String.valueOf(sRegEmail));
         result.put("nickname", String.valueOf(sRegNickname));
+        result.put("profileImgLink", "null");
         mDatabase.child("user").child(user.getUid()).setValue(result);
     }
 

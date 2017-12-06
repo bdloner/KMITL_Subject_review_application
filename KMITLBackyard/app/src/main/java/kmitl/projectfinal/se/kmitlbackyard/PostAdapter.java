@@ -13,7 +13,18 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by CPCust on 5/12/2560.
@@ -24,17 +35,21 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.postLists = listPosts;
         this.context = context;
     }
+    private DatabaseReference mDatabase;
+
     private Context context;
     List<PostModel> postLists;
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_post, parent, false);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final PostModel listPost = postLists.get(position);
         holder.post_nickname.setText(listPost.getUid());
         holder.post_title.setText(listPost.getTitle());
@@ -42,6 +57,36 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_desc.setText(listPost.getDescription());
         holder.post_rating.setRating(Float.parseFloat(listPost.getScore()));
         holder.post_date.setText(listPost.getTimeStamp());
+        Query query = mDatabase.child("user");
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, Object> imgUser = (Map<String, Object>) dataSnapshot.getValue();
+                if (imgUser.get("nickname").toString().equals(listPost.getUid()) && !imgUser.get("profileImgLink").equals("null")) {
+                    Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +98,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_desc", listPost.getDescription());
                 intent.putExtra("post_rating", listPost.getScore());
                 intent.putExtra("post_date", listPost.getTimeStamp());
+                //intent.putExtra("post_ImgLink", listPost.getPostImgLink());
                 context.startActivity(intent);
             }
         });
@@ -71,7 +117,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return postLists.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private Button postComment;
         private CardView cardView;
         private CustomTextView post_nickname;
@@ -80,6 +126,8 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private CustomTextView post_desc;
         private RatingBar post_rating;
         private CustomTextView post_date;
+        private CircleImageView image_icon;
+        private Context context;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +141,9 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             post_desc = itemView.findViewById(R.id.post_desc);
             post_rating = itemView.findViewById(R.id.post_rating);
             post_date = itemView.findViewById(R.id.post_date);
+            image_icon = itemView.findViewById(R.id.image_icon);
+
+
         }
     }
 }
