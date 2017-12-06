@@ -21,7 +21,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private RatingBar post_rating;
     private CustomTextView post_date;
     private CircleImageView image_icon;
-    private String post_id;
+    private String post_id, post_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +46,9 @@ public class ViewPostActivity extends AppCompatActivity {
         post_date.setText(getIntent().getStringExtra("post_date"));
 
         if(getIntent().getStringExtra("post_profile_link") != null || !getIntent().getStringExtra("post_profile_link").equals("")){
-
+            Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
         }
-        Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
+
 
         Bundle bundle =getIntent().getExtras();
         if(bundle != null){
@@ -62,5 +62,8 @@ public class ViewPostActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
+
+
 }

@@ -38,7 +38,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private DatabaseReference mDatabase;
 
     private Context context;
-    private String post_profile_link;
+
     List<PostModel> postLists;
 
 
@@ -66,10 +66,9 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Map<String, Object> imgUser = (Map<String, Object>) dataSnapshot.getValue();
                 if (imgUser.get("nickname").toString().equals(listPost.getUid()) && !imgUser.get("profileImgLink").equals("null")) {
                     if (imgUser.get("profileImgLink").toString() != null || !imgUser.get("profileImgLink").toString().equals("")){
+                        holder.post_profile_link = imgUser.get("profileImgLink").toString();
                         Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
-                        post_profile_link = imgUser.get("profileImgLink").toString();
                     }
-
                 }
             }
 
@@ -104,10 +103,11 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_desc", listPost.getDescription());
                 intent.putExtra("post_rating", listPost.getScore());
                 intent.putExtra("post_date", listPost.getTimeStamp());
-                intent.putExtra("post_profile_link", post_profile_link);
+                intent.putExtra("post_profile_link", holder.post_profile_link);
                 //intent.putExtra("post_ImgLink", listPost.getPostImgLink());
                 intent.putExtra("post_id",  listPost.getPost_id());
                 context.startActivity(intent);
+
             }
         });
 
@@ -135,6 +135,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private RatingBar post_rating;
         private CustomTextView post_date;
         private CircleImageView image_icon;
+        private String post_profile_link;
         private Context context;
 
         public ViewHolder(View itemView) {
