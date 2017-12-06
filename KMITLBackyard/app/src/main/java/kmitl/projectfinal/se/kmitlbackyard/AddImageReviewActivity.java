@@ -58,7 +58,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
         rating_post = findViewById(R.id.rating_post);
         desc_post = findViewById(R.id.desc_post);
         post_title= findViewById(R.id.post_title);
-        subject_id = getIntent().getStringExtra("subjectSelect").split(" ")[0];
+        subject_id = getIntent().getStringExtra("subjectSelect");
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -128,7 +128,7 @@ public class AddImageReviewActivity extends AppCompatActivity {
                 String score = getIntent().getStringExtra("rating");
                 String description = getIntent().getStringExtra("comment");
                 String title = this.post_title.getText().toString();
-                String uid = user.getUid();
+                String uid = user.getDisplayName();
                 String timeStamp = getCurrentTime();
                 String score_num = "0";
 

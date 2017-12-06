@@ -91,7 +91,7 @@ public class SubjectPostActivity extends AppCompatActivity {
                         newPost.get("uid").toString()
 
                 );
-                if(newPost.get("subject_id").toString().equals(subjectSelect.split(" ")[0])){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
+                if(newPost.get("subject_id").toString().equals(subjectSelect)){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
                     listPosts.add(0, postItem);
                     adapter = new PostAdapter(listPosts, getApplication());
                     recyclerView.setAdapter(adapter);
