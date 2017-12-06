@@ -57,6 +57,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_desc.setText(listPost.getDescription());
         holder.post_rating.setRating(Float.parseFloat(listPost.getScore()));
         holder.post_date.setText(listPost.getTimeStamp());
+
         Query query = mDatabase.child("user");
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -99,6 +100,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_rating", listPost.getScore());
                 intent.putExtra("post_date", listPost.getTimeStamp());
                 //intent.putExtra("post_ImgLink", listPost.getPostImgLink());
+                intent.putExtra("post_id",  listPost.getPost_id());
                 context.startActivity(intent);
             }
         });

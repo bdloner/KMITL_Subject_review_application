@@ -16,6 +16,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private CustomTextView post_desc;
     private RatingBar post_rating;
     private CustomTextView post_date;
+    private String post_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +37,15 @@ public class ViewPostActivity extends AppCompatActivity {
         post_desc.setText(getIntent().getStringExtra("post_desc"));
         post_rating.setRating(Float.parseFloat(getIntent().getStringExtra("post_rating")));
         post_date.setText(getIntent().getStringExtra("post_date"));
+        Bundle bundle =getIntent().getExtras();
+        if(bundle != null){
+            post_id = bundle.getString("post_id");
+        }
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
+                intent.putExtra("post_id", post_id);
                 startActivity(intent);
             }
         });
