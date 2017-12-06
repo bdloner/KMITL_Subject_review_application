@@ -20,11 +20,9 @@ public class ViewPostActivity extends AppCompatActivity {
     private CustomTextView post_desc;
     private RatingBar post_rating;
     private CustomTextView post_date;
-<<<<<<< HEAD
     private CircleImageView image_icon;
-=======
     private String post_id;
->>>>>>> origin/master
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,17 +44,16 @@ public class ViewPostActivity extends AppCompatActivity {
         post_desc.setText(getIntent().getStringExtra("post_desc"));
         post_rating.setRating(Float.parseFloat(getIntent().getStringExtra("post_rating")));
         post_date.setText(getIntent().getStringExtra("post_date"));
-<<<<<<< HEAD
+
         if(getIntent().getStringExtra("post_profile_link") != null || !getIntent().getStringExtra("post_profile_link").equals("")){
 
         }
         Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
-=======
+
         Bundle bundle =getIntent().getExtras();
         if(bundle != null){
             post_id = bundle.getString("post_id");
         }
->>>>>>> origin/master
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
