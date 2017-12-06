@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ViewPostActivity extends AppCompatActivity {
 
     private Button addComment;
@@ -16,6 +20,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private CustomTextView post_desc;
     private RatingBar post_rating;
     private CustomTextView post_date;
+    private CircleImageView image_icon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,7 @@ public class ViewPostActivity extends AppCompatActivity {
         post_desc = findViewById(R.id.post_desc);
         post_rating = findViewById(R.id.post_rating);
         post_date = findViewById(R.id.post_date);
+        image_icon = findViewById(R.id.image_icon);
 
         post_nickname.setText(getIntent().getStringExtra("post_nickname"));
         post_title.setText(getIntent().getStringExtra("post_title"));
@@ -36,6 +42,10 @@ public class ViewPostActivity extends AppCompatActivity {
         post_desc.setText(getIntent().getStringExtra("post_desc"));
         post_rating.setRating(Float.parseFloat(getIntent().getStringExtra("post_rating")));
         post_date.setText(getIntent().getStringExtra("post_date"));
+        if(getIntent().getStringExtra("post_profile_link") != null || !getIntent().getStringExtra("post_profile_link").equals("")){
+
+        }
+        Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

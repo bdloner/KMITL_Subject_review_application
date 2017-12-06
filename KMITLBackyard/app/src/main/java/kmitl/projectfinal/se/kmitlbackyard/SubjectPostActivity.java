@@ -20,10 +20,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SubjectPostActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class SubjectPostActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private DatabaseReference mDatabase;
     private List<PostModel> listPosts;
+    private CircleImageView img_nickname;
 
 
     @Override
@@ -52,6 +56,7 @@ public class SubjectPostActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         recyclerView = findViewById(R.id.list_post);
+        img_nickname = findViewById(R.id.img_nickname);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listPosts = new ArrayList<>();
         queryData();
@@ -61,6 +66,10 @@ public class SubjectPostActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         post_nickname.setText(user.getDisplayName());
+        if(user.getPhotoUrl()!=null){
+            Picasso.with(getApplicationContext()).load(user.getPhotoUrl()).fit().centerCrop().into(img_nickname);
+        }
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         subjectSelect = getIntent().getStringExtra("subjectSelect");
@@ -75,8 +84,6 @@ public class SubjectPostActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     private void queryData() {
@@ -86,7 +93,7 @@ public class SubjectPostActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
                 PostModel postItem = new PostModel(
-                        newPost.get("description").toString(),newPost.get("postImgLink").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
+                        newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
                         newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
                         newPost.get("uid").toString()
 

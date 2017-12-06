@@ -6,7 +6,6 @@ package kmitl.projectfinal.se.kmitlbackyard;
 
 public class PostModel {
     private String description;
-    private String postImgLink;
     private String score;
     private String score_num;
     private String subject_id;
@@ -14,9 +13,8 @@ public class PostModel {
     private String title;
     private String uid;
 
-    public PostModel(String description,String postImgLink,String score, String score_num, String subject_id, String timeStamp, String title, String uid) {
+    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid) {
         this.description = description;
-        this.postImgLink = postImgLink;
         this.score = score;
         this.score_num = score_num;
         this.subject_id = subject_id;
@@ -31,14 +29,6 @@ public class PostModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPostImgLink() {
-        return postImgLink;
-    }
-
-    public void setPostImgLink(String postImgLink) {
-        this.postImgLink = postImgLink;
     }
 
     public String getScore() {
