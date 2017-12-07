@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private String[] listAllFacs = new String[]{"Engineering", "Architecture", "Education", "Agricultural_techno",
                                                 "Science", "Agriculture", "It", "International", "Nano_techno", "Production_inno",
                                                 "Management", "Inter_flight", "Liberal_arts"};
+    private ArrayList<String> listAllSubject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -195,8 +197,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.search_btn:
-                intent2.putExtra("subjectSelect", seach_subject.getText().toString());
-                startActivity(intent2);
+                if(!seach_subject.getEditableText().toString().equals("") ){
+                    boolean temp = false;
+                    for (String item: listItems){
+                        if (item.equals(seach_subject.getEditableText().toString())){
+                            temp = true;
+                        }
+                    }
+                    if (temp){
+                        intent2.putExtra("subjectSelect", seach_subject.getText().toString());
+                        startActivity(intent2);
+                    }
+                    else {
+                        Toast.makeText(getContext(), "กรุณากรอกชื่อวิชาและรหัสวิชาให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getContext(), "กรุณากรอกชื่อวิชาและรหัสวิชาในช่องว่าง", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.clear_btn:
                 seach_subject.setText("");

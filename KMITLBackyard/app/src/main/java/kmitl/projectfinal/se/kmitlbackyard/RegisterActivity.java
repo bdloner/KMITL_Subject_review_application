@@ -134,6 +134,12 @@ public class RegisterActivity extends Activity {
         result.put("email", String.valueOf(sRegEmail));
         result.put("nickname", String.valueOf(sRegNickname));
         result.put("profileImgLink", "null");
+        if(sRegEmail.split("@")[0].length() == 8 && !sRegEmail.contains("[a-zA-Z]+")){
+            result.put("role", "student");
+        }
+        else {
+            result.put("role", "teacher");
+        }
         mDatabase.child("user").child(user.getUid()).setValue(result);
     }
 

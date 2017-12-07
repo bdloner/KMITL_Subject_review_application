@@ -103,7 +103,12 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         String emailReset= editEmail.getText().toString();
-                        resetPassword(emailReset);
+                        if(emailReset.equals("") || emailReset.isEmpty()){
+                            Toast.makeText(getApplicationContext(), "กรุณากรอกอีเมลล์", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            resetPassword(emailReset);
+                        }
                         dialog.dismiss();
                     }
                 });

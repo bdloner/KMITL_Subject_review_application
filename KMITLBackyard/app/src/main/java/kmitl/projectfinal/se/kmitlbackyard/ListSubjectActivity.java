@@ -31,7 +31,7 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
     ArrayList<String> listItems;
     ArrayAdapter<String> adapter;
     ListView listView;
-    AutoCompleteTextView editText;
+    EditText editText;
     DatabaseReference databaseReference;
     String fac;
 
@@ -69,6 +69,22 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
 
             }
         });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (ListSubjectActivity.this).adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -76,7 +92,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
     public void initList(){
         listItems = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtItem, listItems);
-        editText.setAdapter(adapter);
         listView.setAdapter(adapter);
     }
 

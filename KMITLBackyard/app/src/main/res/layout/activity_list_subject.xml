@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     tools:context="kmitl.projectfinal.se.kmitlbackyard.ListSubjectActivity">
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/txt_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
