@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             android:textColorHint="#ffffff">
 
-            <EditText
+            <cn.zhaiyifan.rememberedittext.RememberEditText
                 android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,10 @@
                 android:hint="อีเมล @kmitl.ac.th"
                 android:textColor="#ffffff"
                 android:maxLength="20"
-                android:backgroundTint="#ffffff" />
+                android:backgroundTint="#ffffff"
+                android:inputType="text"
+                app:rememberCount="3"
+                app:rememberId="username"/>
 
         </android.support.design.widget.TextInputLayout>
 

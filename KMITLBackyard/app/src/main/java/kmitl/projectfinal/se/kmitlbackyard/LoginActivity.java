@@ -28,9 +28,12 @@ import com.santalu.emptyview.EmptyView;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.zhaiyifan.rememberedittext.RememberEditText;
+
 public class LoginActivity extends Activity {
 
-    private EditText loginEmail, loginPassword;
+    private EditText loginPassword;
+    private RememberEditText loginEmail;
     private Button btnLogin, btnRegister;
     DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -55,6 +58,7 @@ public class LoginActivity extends Activity {
         if(firebaseAuth.getCurrentUser() != null){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         forgotPass = findViewById(R.id.forgot_pass);
