@@ -40,7 +40,7 @@
             android:parentActivityName=".SubjectPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddImageReviewActivity"
+            android:name=".AddTitleReviewActivity"
             android:parentActivityName=".WriteReviewActivity"
             android:screenOrientation="portrait" />
         <activity

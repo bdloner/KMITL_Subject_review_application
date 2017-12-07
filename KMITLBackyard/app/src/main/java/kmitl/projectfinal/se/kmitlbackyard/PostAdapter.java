@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,7 +52,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final PostModel listPost = postLists.get(position);
         holder.post_nickname.setText(listPost.getUid());
         holder.post_title.setText(listPost.getTitle());
@@ -111,6 +113,18 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.postLove.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                //+1
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                //-1
+            }
+        });
+
         holder.postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +141,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private Button postComment;
+        private LikeButton postLove;
         private CardView cardView;
         private CustomTextView post_nickname;
         private CustomTextView post_title;
@@ -142,6 +157,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             super(itemView);
             context = itemView.getContext();
             postComment = itemView.findViewById(R.id.post_comment);
+            postLove = itemView.findViewById(R.id.post_love);
             cardView = itemView.findViewById(R.id.card_view);
 
             post_nickname = itemView.findViewById(R.id.post_nickname);
@@ -151,7 +167,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             post_rating = itemView.findViewById(R.id.post_rating);
             post_date = itemView.findViewById(R.id.post_date);
             image_icon = itemView.findViewById(R.id.image_icon);
-
 
         }
     }
