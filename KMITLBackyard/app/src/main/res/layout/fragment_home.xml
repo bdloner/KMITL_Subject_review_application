@@ -102,39 +102,18 @@
                             android:text="ปีการศึกษา 2560"
                             android:textSize="25dp"
                             android:textStyle="bold"
+                            android:layout_marginBottom="20dp"
                             tools:layout_editor_absoluteX="8dp"
                             tools:layout_editor_absoluteY="77dp" />
-
-                        <Spinner
-                            android:id="@+id/spinner_subject"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_below="@+id/customTextView"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="20dp" />
-
-                        <Spinner
-                            android:id="@+id/spinner_semester"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_alignEnd="@+id/spinner_subject"
-                            android:layout_alignLeft="@+id/spinner_subject"
-                            android:layout_alignRight="@+id/spinner_subject"
-                            android:layout_alignStart="@+id/spinner_subject"
-                            android:layout_below="@+id/spinner_subject"
-                            android:layout_marginTop="8dp"/>
 
                         <Button
                             android:id="@+id/engineering_btn"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_below="@+id/spinner_semester"
-                            android:background="@drawable/engineering_btn"/>
+                            android:layout_alignLeft="@+id/customTextView"
+                            android:layout_alignStart="@+id/customTextView"
+                            android:layout_below="@+id/customTextView"
+                            android:background="@drawable/engineering_btn" />
 
                         <Button
                             android:id="@+id/architecture_btn"
@@ -148,10 +127,12 @@
                             android:id="@+id/education_btn"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_alignEnd="@+id/spinner_semester"
-                            android:layout_alignRight="@+id/spinner_semester"
-                            android:layout_alignTop="@+id/architecture_btn"
-                            android:background="@drawable/education_btn"/>
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/customTextView"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@drawable/education_btn" />
 
                         <Button
                             android:id="@+id/agricultural_techno_btn"
