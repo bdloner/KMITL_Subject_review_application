@@ -37,7 +37,7 @@ public class WriteReviewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_menu_next:
-                Intent intent = new Intent(this, AddTitleReviewActivity.class);
+                Intent intent = new Intent(this, AddImageReviewActivity.class);
                 intent.putExtra("comment", comment.getText().toString());
                 intent.putExtra("rating", String.valueOf(ratingBar.getRating()));
                 intent.putExtra("subjectSelect", getIntent().getStringExtra("subjectSelect"));

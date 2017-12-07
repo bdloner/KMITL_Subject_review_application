@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
@@ -11,7 +11,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_icon"
@@ -41,17 +41,19 @@
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/comment_desc"
-                android:layout_width="288dp"
+                android:layout_width="299dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/image_icon"
                 android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/image_icon"
                 android:layout_toRightOf="@+id/image_icon"
                 android:text="ผมว่ามันน่าเรียนมากๆเลยครับ แต่ถ้าจะให้ดีไม่เรียนดีกว่า 55555555555555555555555555555555"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_icon"
                 app:layout_constraintTop_toBottomOf="@+id/comment_nickname"
                 app:layout_constraintVertical_bias="0.0" />

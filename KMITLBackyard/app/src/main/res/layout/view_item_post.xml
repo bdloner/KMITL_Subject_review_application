@@ -10,7 +10,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -31,36 +31,35 @@
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
-                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_desc">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.like.LikeButton
+                    <Button
                         android:id="@+id/post_love"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="36dp"
-                        android:layout_marginStart="36dp"
-                        app:icon_type="heart"
-                        app:like_drawable="@drawable/loved"
-                        app:unlike_drawable="@drawable/love"
-                        app:icon_size="25dp" />
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginStart="48dp"
+                        android:background="@drawable/love" />
 
                     <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                         android:id="@+id/amount_love"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginStart="11dp"
                         android:layout_toEndOf="@+id/post_love"
                         android:layout_toRightOf="@+id/post_love"
                         android:text="13"
@@ -70,8 +69,11 @@
                         android:id="@+id/post_comment"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_alignBottom="@+id/amount_comment"
-                        android:layout_centerHorizontal="true"
+                        android:layout_alignTop="@+id/post_love"
+                        android:layout_marginLeft="56dp"
+                        android:layout_marginStart="56dp"
+                        android:layout_toEndOf="@+id/amount_love"
+                        android:layout_toRightOf="@+id/amount_love"
                         android:background="@drawable/commented" />
 
                     <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
@@ -200,7 +202,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:maxLines="3"
-                android:text="รายละเอียดการรีวิว อ่านต่อ>>"
+                android:text="รายละเอียดการรีวิว กกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกกก อ่านต่อ>>"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

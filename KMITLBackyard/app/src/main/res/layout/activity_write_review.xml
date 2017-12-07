@@ -53,9 +53,9 @@
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:maxLength="600"
+        android:maxLength="360"
         android:gravity="top"
-        android:hint="มาพูดถึงวิชานี้ใน 600 ตัวอักษร.."
+        android:hint="มาพูดถึงวิชานี้ใน 360 ตัวอักษร.."
         android:inputType="textMultiLine"
         android:padding="8dp"/>
 
