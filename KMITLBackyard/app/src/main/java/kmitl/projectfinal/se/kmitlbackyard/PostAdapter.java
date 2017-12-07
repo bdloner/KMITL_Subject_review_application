@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +15,21 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,16 +45,22 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.context = context;
     }
     private DatabaseReference mDatabase;
-
+    private DatabaseReference mDatabaseLike;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
     private Context context;
-
+    private boolean mProcessLike =false;
     List<PostModel> postLists;
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_post, parent, false);
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseLike.keepSynced(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         return new ViewHolder(view);
     }
 
@@ -60,6 +73,20 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_desc.setText(listPost.getDescription());
         holder.post_rating.setRating(Float.parseFloat(listPost.getScore()));
         holder.post_date.setText(listPost.getTimeStamp());
+        holder.setLikeBtn(listPost.getPost_id());
+        holder.post_id = listPost.getPost_id();
+        holder.amount_love.setText(listPost.getPost_liked());
+
+        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                menu.add(holder.getAdapterPosition(), 0, 0, "แก้ไข");
+                menu.add(holder.getAdapterPosition(), 1, 0, "ลบ");
+                menu.add(holder.getAdapterPosition(), 2, 0, "ยกเลิก");
+            }
+        });
+
+
 
         Query query = mDatabase.child("user");
         query.addChildEventListener(new ChildEventListener() {
@@ -113,15 +140,34 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+
+
+
         holder.postLove.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                //+1
+
+
+                listPost.setPost_liked(String.valueOf(Integer.parseInt(listPost.getPost_liked())+1));
+                Map<String, Object> chat = new HashMap<String, Object>();
+                chat.put("post_liked", Integer.parseInt(listPost.getPost_liked()));
+                mDatabase.child("post").child(listPost.getPost_id()).updateChildren(chat);
+                holder.amount_love.setText(listPost.getPost_liked());
+                //mFirebase.push().setValue(chat);
+                //mMessage.setText("");
+                //listPost.getPost_liked()
+               holder.queryLike();
+
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                //-1
+                listPost.setPost_liked(String.valueOf(Integer.parseInt(listPost.getPost_liked())-1));
+                Map<String, Object> chat = new HashMap<String, Object>();
+                chat.put("post_liked", Integer.parseInt(listPost.getPost_liked()));
+                mDatabase.child("post").child(listPost.getPost_id()).updateChildren(chat);
+                holder.amount_love.setText(listPost.getPost_liked());
+                holder.queryLike();
             }
         });
 
@@ -129,6 +175,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra("post_id",  listPost.getPost_id());
                 context.startActivity(intent);
             }
         });
@@ -165,19 +212,21 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private CustomTextView post_title;
         private CustomTextView post_subject;
         private CustomTextView post_desc;
+        private CustomTextView amount_love;
         private RatingBar post_rating;
         private CustomTextView post_date;
         private CircleImageView image_icon;
-        private String post_profile_link;
+        private String post_profile_link, post_id;
         private Context context;
-
+        DatabaseReference mdatabaseLike;
+        FirebaseAuth mAuth;
         public ViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
             postComment = itemView.findViewById(R.id.post_comment);
             postLove = itemView.findViewById(R.id.post_love);
             cardView = itemView.findViewById(R.id.card_view);
-
+            amount_love = itemView.findViewById(R.id.amount_love);
             post_nickname = itemView.findViewById(R.id.post_nickname);
             post_title = itemView.findViewById(R.id.post_title);
             post_subject = itemView.findViewById(R.id.post_subjet);
@@ -185,7 +234,54 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             post_rating = itemView.findViewById(R.id.post_rating);
             post_date = itemView.findViewById(R.id.post_date);
             image_icon = itemView.findViewById(R.id.image_icon);
+            mdatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            mAuth = FirebaseAuth.getInstance();
 
+            mDatabaseLike.keepSynced(true);
         }
+        public void setLikeBtn(final String post_key){
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(post_id).hasChild(user.getUid())){
+                        postLove.setLiked(true);
+
+
+                    }else {
+                        postLove.setLiked(false);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        public void queryLike(){
+            mProcessLike = true;
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(mProcessLike) {
+                        if (dataSnapshot.child(post_id).hasChild(user.getUid())) {
+                            mDatabaseLike.child(post_id).child(user.getUid()).removeValue();
+                            mProcessLike = false;
+
+                        }else {
+                            mDatabaseLike.child(post_id).child(user.getUid()).setValue("uid");
+                            mProcessLike = false;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
     }
 }
