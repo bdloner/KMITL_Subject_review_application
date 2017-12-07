@@ -45,7 +45,7 @@ public class ViewPostActivity extends AppCompatActivity {
         post_rating.setRating(Float.parseFloat(getIntent().getStringExtra("post_rating")));
         post_date.setText(getIntent().getStringExtra("post_date"));
 
-        if(getIntent().getStringExtra("post_profile_link") != null || !getIntent().getStringExtra("post_profile_link").equals("")){
+        if(getIntent().getStringExtra("post_profile_link") != null && !getIntent().getStringExtra("post_profile_link").equals("")){
             Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
         }
 
