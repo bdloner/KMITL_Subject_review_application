@@ -55,7 +55,7 @@ public class MeFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private Button logout_btn;
     String profileImageUrl;
-    CircleImageView circleImageView2;
+    CircleImageView circleImageView2,history_img;
     private static final int CHOOSE_IMAGE = 101;
     FirebaseUser user;
     private DatabaseReference mDatabase;
@@ -79,6 +79,7 @@ public class MeFragment extends Fragment {
         profile_nickname = v.findViewById(R.id.profile_nickname);
         save_btn =  v.findViewById(R.id.save_btn);
         emptyView = v.findViewById(R.id.layout_content_container);
+        history_img = v.findViewById(R.id.history_img);
 
         user = firebaseAuth.getCurrentUser();
         setImageProfilePic();
@@ -121,6 +122,14 @@ public class MeFragment extends Fragment {
                 result.put("nickname", String.valueOf(nick));
 
                 mDatabase.child("user").child(user.getUid()).setValue(result);
+            }
+        });
+        history_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ShowHistoryActivity.class);
+                intent.putExtra("uid", user.getDisplayName());
+                startActivity(intent);
             }
         });
         return v;

@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/layout_post"
+            android:id="@+id/history_img"
             android:layout_width="75dp"
             android:layout_height="87dp"
             android:layout_marginRight="32dp"

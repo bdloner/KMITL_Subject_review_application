@@ -132,6 +132,24 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
+
+        holder.post_nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ShowHistoryActivity.class);
+                intent.putExtra("uid", listPost.getUid());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.image_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ShowHistoryActivity.class);
+                intent.putExtra("uid", listPost.getUid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

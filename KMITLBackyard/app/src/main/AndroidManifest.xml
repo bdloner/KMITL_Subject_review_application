@@ -45,10 +45,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".CommentActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewPostActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ShowHistoryActivity"></activity>
     </application>
 
 </manifest>

@@ -63,6 +63,24 @@ public class ViewPostActivity extends AppCompatActivity {
             }
         });
 
+        post_nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);
+                intent.putExtra("uid", getIntent().getStringExtra("post_nickname"));
+                startActivity(intent);
+            }
+        });
+
+        image_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);
+                intent.putExtra("uid", getIntent().getStringExtra("post_nickname"));
+                startActivity(intent);
+            }
+        });
+
     }
 
 
