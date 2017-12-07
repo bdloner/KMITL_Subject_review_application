@@ -51,6 +51,18 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <Button
+                            android:id="@+id/clear_btn"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="18dp"
+                            android:background="@drawable/ic_action_close"
+                            android:visibility="invisible"
+                            app:layout_constraintEnd_toEndOf="@+id/seach_subject"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
                             android:id="@+id/search_btn"
                             android:layout_width="55dp"
                             android:layout_height="55dp"

@@ -34,7 +34,7 @@ public class CommentActivity extends Activity{
 
     private Button closeBtn, blockSend, avaSend;
     private EditText addComment;
-    private  String value, timeStamp, post_id ;
+    private String value, timeStamp, post_id ;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private DatabaseReference mDatabase;

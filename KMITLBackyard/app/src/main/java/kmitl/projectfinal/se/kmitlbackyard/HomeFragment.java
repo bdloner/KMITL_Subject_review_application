@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +30,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private Button engineeringBtn, architectureBtn, educationBtn, agriculturalTechnoBtn,
             scienceBtn, agricultureBtn, itBtn, internationalBtn, nanoTechnoBtn, productionInnoBtn,
-            managementBtn, interFlightBtn, liberalArtsBtn, search_btn;
+            managementBtn, interFlightBtn, liberalArtsBtn, search_btn, clearBtn;
 
     private AutoCompleteTextView seach_subject;
     ArrayAdapter<String> adapter;
     private Spinner catSubject, semester;
     DatabaseReference databaseReference;
+    private String value;
     private ArrayList<String> listItems = new ArrayList<String>();
     private String[] listAllFacs = new String[]{"Engineering", "Architecture", "Education", "Agricultural_techno",
                                                 "Science", "Agriculture", "It", "International", "Nano_techno", "Production_inno",
@@ -59,11 +62,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         liberalArtsBtn = v.findViewById(R.id.liberal_arts_btn);
         seach_subject = v.findViewById(R.id.seach_subject);
         search_btn = v.findViewById(R.id.search_btn);
+        clearBtn = v.findViewById(R.id.clear_btn);
 
         adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, R.id.txtItem, listItems);
         seach_subject.setAdapter(adapter);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+
+        seach_subject.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                value = s.toString();
+
+                if (value.equals("")) {
+                    clearBtn.setVisibility(View.INVISIBLE);
+
+                } else {
+                    clearBtn.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(final CharSequence s, int start, int before, int count){
+
+            }
+
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,6 +128,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         interFlightBtn.setOnClickListener(this);
         liberalArtsBtn.setOnClickListener(this);
         search_btn.setOnClickListener(this);
+        clearBtn.setOnClickListener(this);
 
         return v;
     }
@@ -167,6 +197,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.search_btn:
                 intent2.putExtra("subjectSelect", seach_subject.getText().toString());
                 startActivity(intent2);
+                break;
+            case R.id.clear_btn:
+                seach_subject.setText("");
                 break;
         }
 
