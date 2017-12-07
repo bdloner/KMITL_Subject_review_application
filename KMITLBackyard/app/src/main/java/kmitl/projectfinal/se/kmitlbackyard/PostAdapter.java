@@ -75,8 +75,25 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_date.setText(listPost.getTimeStamp());
         holder.setLikeBtn(listPost.getPost_id());
         holder.post_id = listPost.getPost_id();
+        holder.post_liked = listPost.getPost_liked();
+
         holder.amount_love.setText(listPost.getPost_liked());
 
+        Query query1 = mDatabase.child("post").child(listPost.getPost_id());
+        query1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                holder.amount_love.setText(newPost.get("post_liked").toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
@@ -146,16 +163,11 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postLove.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-
-
                 listPost.setPost_liked(String.valueOf(Integer.parseInt(listPost.getPost_liked())+1));
                 Map<String, Object> chat = new HashMap<String, Object>();
                 chat.put("post_liked", Integer.parseInt(listPost.getPost_liked()));
                 mDatabase.child("post").child(listPost.getPost_id()).updateChildren(chat);
                 holder.amount_love.setText(listPost.getPost_liked());
-                //mFirebase.push().setValue(chat);
-                //mMessage.setText("");
-                //listPost.getPost_liked()
                holder.queryLike();
 
             }
@@ -170,6 +182,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 holder.queryLike();
             }
         });
+
 
         holder.postComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +233,8 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private Context context;
         DatabaseReference mdatabaseLike;
         FirebaseAuth mAuth;
+        public String post_liked;
+
         public ViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
@@ -259,6 +274,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
         }
+
         public void queryLike(){
             mProcessLike = true;
             mDatabaseLike.addValueEventListener(new ValueEventListener() {
@@ -281,6 +297,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
         }
+
 
 
     }
