@@ -95,6 +95,11 @@ public class RegisterActivity extends Activity {
                     regPassword.setText("");
                     regConfirmPassword.setText("");
                 }
+                else if(sRegPassword.length() < 6){
+                    Toast.makeText(getApplicationContext(), "พาสเวิร์ดต้องมีมากกว่า6ตัว", Toast.LENGTH_SHORT).show();
+                    regPassword.setText("");
+                    regConfirmPassword.setText("");
+                }
                 else {
                     emptyView.showLoading();
                     registerUser();
@@ -154,9 +159,12 @@ public class RegisterActivity extends Activity {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();
-                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "สมัครสำเร็จ", Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(getApplicationContext(), task.getResult().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "อีเมลล์ของท่านมีอยู่ในระบบอยู่แล้ว", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 });

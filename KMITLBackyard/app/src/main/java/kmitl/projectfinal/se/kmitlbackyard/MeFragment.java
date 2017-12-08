@@ -23,10 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,8 +59,8 @@ public class MeFragment extends Fragment {
     String profileImageUrl;
     CircleImageView circleImageView2,history_img;
     private static final int CHOOSE_IMAGE = 101;
+    String role;
     FirebaseUser user;
-    private DatabaseReference mDatabase;
     FirebaseDatabase firebaseDatabase;
     Button save_btn;
 
@@ -72,15 +74,14 @@ public class MeFragment extends Fragment {
         logout_btn = v.findViewById(R.id.logout_btn);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         profile_email = v.findViewById(R.id.profile_email);
         circleImageView2 = v.findViewById(R.id.circleImageView2);
         profile_nickname = v.findViewById(R.id.profile_nickname);
         save_btn =  v.findViewById(R.id.save_btn);
         emptyView = v.findViewById(R.id.layout_content_container);
         history_img = v.findViewById(R.id.history_img);
-
+        queryRole();
         user = firebaseAuth.getCurrentUser();
         setImageProfilePic();
         profile_email.setText(user.getEmail());
@@ -120,8 +121,8 @@ public class MeFragment extends Fragment {
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("email", String.valueOf(profile_email.getText().toString()));
                 result.put("nickname", String.valueOf(nick));
-
-                mDatabase.child("user").child(user.getUid()).setValue(result);
+                result.put("role", role);
+                databaseReference.child("user").child(user.getUid()).setValue(result);
             }
         });
         history_img.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +134,46 @@ public class MeFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private void queryRole() {
+        Query query = databaseReference.child("user");
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, Object> setUser = (Map<String, Object>) dataSnapshot.getValue();
+
+                if (dataSnapshot.getKey().equals(firebaseAuth.getUid())){
+                    if(setUser.get("role").toString().equals("student")){
+                        role = "student";
+                    }
+                    else if (setUser.get("role").toString().equals("teacher")){
+                        role = "teacher";
+                    }
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void setImageProfilePic() {
@@ -162,7 +203,6 @@ public class MeFragment extends Fragment {
     private void uploadImageToFirebaseStorage() {
         final StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/"+firebaseAuth.getCurrentUser().getEmail()+".jpg");
-
         if(uriProfileImage != null){
             profileImageRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -171,7 +211,7 @@ public class MeFragment extends Fragment {
                     profileImageUrl = taskSnapshot.getDownloadUrl().toString();
                     changeImageUrlInAuth(taskSnapshot.getDownloadUrl());
                     Picasso.with(getContext()).load(profileImageUrl).fit().centerCrop().into(circleImageView2);
-                    mDatabase.child("user").child(user.getUid()).child("profileImgLink").setValue(profileImageUrl);
+                    databaseReference.child("user").child(user.getUid()).child("profileImgLink").setValue(profileImageUrl);
 //                    Toast.makeText(getContext(), "Success to upload profile image", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
