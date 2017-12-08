@@ -141,7 +141,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         Intent intent = new Intent(getActivity(), ListSubjectActivity.class);
         Intent intent2 = new Intent(getActivity(), SubjectPostActivity.class);
 
-
         switch (view.getId()){
 
             case R.id.engineering_btn:

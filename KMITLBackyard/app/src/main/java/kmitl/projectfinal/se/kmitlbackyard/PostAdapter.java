@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private Context context;
+    Toast mToast;
     private boolean mProcessLike =false;
     List<PostModel> postLists;
     @Override
@@ -58,6 +60,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         mDatabaseLike.keepSynced(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        mToast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
         user = firebaseAuth.getCurrentUser();
         return new ViewHolder(view);
     }
@@ -83,9 +86,14 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         query4.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                listPost.setViewer(newPost.get("viewer").toString());
-                holder.amount_view.setText(newPost.get("viewer").toString());
+                try {
+                    Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                    listPost.setViewer(newPost.get("viewer").toString());
+                    holder.amount_view.setText(newPost.get("viewer").toString());
+                }catch (Exception e){
+                    mToast.setText("Post Deleted");
+                }
+
             }
 
             @Override
@@ -97,8 +105,13 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         query1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                holder.amount_love.setText(newPost.get("post_liked").toString());
+                try {
+                    Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                    holder.amount_love.setText(newPost.get("post_liked").toString());
+                }catch (Exception e){
+                    mToast.setText("Post Deleted");
+                }
+
             }
 
             @Override
@@ -155,15 +168,15 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 holder.num_comment=0;
                // holder.amount_comment.setText(String.valueOf(holder.num_comment));
-                Query query2 = mDatabase.child("comment");
+                Query query2 = mDatabase.child("comment").child(holder.post_id);
                 query2.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Map<String, Object> newComment = (Map<String, Object>) dataSnapshot.getValue();
-                        if(listPost.getPost_id().equals(newComment.get("post_id").toString())){
+
                             holder.num_comment += 1;
                             holder.amount_comment.setText(String.valueOf(holder.num_comment));
-                        }
+
                     }
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -210,6 +223,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_profile_link", holder.post_profile_link);
                 intent.putExtra("post_ImgLink", listPost.getViewer());
                 intent.putExtra("post_id",  listPost.getPost_id());
+                intent.putExtra("user_key", listPost.getUser_key());
                 context.startActivity(intent);
 
             }

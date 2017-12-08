@@ -102,10 +102,10 @@ public class CommentActivity extends Activity{
     public void sendComment(View view) {
         HashMap<String, Object> result = new HashMap<>();
         result.put("content", value);
-        result.put("post_id", post_id);
+        //result.put("post_id", post_id);
         result.put("timeStamp", timeStamp);
         result.put("uid", user.getDisplayName());
-        mDatabase.child("comment").push().setValue(result);
+        mDatabase.child("comment").child(post_id).push().setValue(result);
         value = "";
         addComment.setText("");
     }
@@ -116,20 +116,19 @@ public class CommentActivity extends Activity{
     }
 
     private void queryData() {
-        Query query = mDatabase.child("comment");
+        Query query = mDatabase.child("comment").child(post_id);
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> newComment = (Map<String, Object>) dataSnapshot.getValue();
                 CommentModel commentItem = new CommentModel(
-                        newComment.get("content").toString(), newComment.get("post_id").toString(),
+                        newComment.get("content").toString(),
                         newComment.get("timeStamp").toString(), newComment.get("uid").toString()
                        );
-                    if(post_id.equals(newComment.get("post_id").toString())){
                         listComments.add(commentItem);
                         adapter = new CommentAdapter(listComments, getApplication());
                         recyclerView.setAdapter(adapter);
-                    }
+
 
             }
 

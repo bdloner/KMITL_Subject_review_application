@@ -6,13 +6,12 @@ package kmitl.projectfinal.se.kmitlbackyard;
 
 public class CommentModel {
     private String content;
-    private String post_id;
     private String timeStamp;
     private String uid;
 
-    public CommentModel(String content, String post_id, String timeStamp, String uid) {
+    public CommentModel(String content,  String timeStamp, String uid) {
         this.content = content;
-        this.post_id = post_id;
+
         this.timeStamp = timeStamp;
         this.uid = uid;
     }
@@ -25,13 +24,7 @@ public class CommentModel {
         this.content = content;
     }
 
-    public String getPost_id() {
-        return post_id;
-    }
 
-    public void setPost_id(String post_id) {
-        this.post_id = post_id;
-    }
 
     public String getTimeStamp() {
         return timeStamp;

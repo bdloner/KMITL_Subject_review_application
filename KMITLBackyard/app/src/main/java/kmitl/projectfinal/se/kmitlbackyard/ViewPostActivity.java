@@ -1,5 +1,6 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -21,14 +26,20 @@ public class ViewPostActivity extends AppCompatActivity {
     private RatingBar post_rating;
     private CustomTextView post_date;
     private CircleImageView image_icon;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
+    private DatabaseReference mDatabase;
+    private Button edit_post, delete_post;
     private String post_id, post_img;
-
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_post);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         addComment = findViewById(R.id.add_comment);
         post_nickname = findViewById(R.id.post_nickname);
         post_title = findViewById(R.id.post_title);
@@ -37,7 +48,12 @@ public class ViewPostActivity extends AppCompatActivity {
         post_rating = findViewById(R.id.post_rating);
         post_date = findViewById(R.id.post_date);
         image_icon = findViewById(R.id.image_icon);
-
+        edit_post = findViewById(R.id.edit_post);
+        delete_post = findViewById(R.id.delete_post);
+        if(user.getUid().equals(getIntent().getStringExtra("user_key"))){
+            edit_post.setVisibility(View.VISIBLE);
+            delete_post.setVisibility(View.VISIBLE);
+        }
         post_nickname.setText(getIntent().getStringExtra("post_nickname"));
         post_title.setText(getIntent().getStringExtra("post_title"));
         post_subject.setText(getIntent().getStringExtra("post_subject"));
@@ -54,6 +70,20 @@ public class ViewPostActivity extends AppCompatActivity {
         if(bundle != null){
             post_id = bundle.getString("post_id");
         }
+
+
+        delete_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.child("post").child(post_id).removeValue();
+                mDatabase.child("Likes").child(post_id).removeValue();
+                mDatabase.child("comment").child(post_id).removeValue();
+                Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
+               startActivity(intent);
+               finish();
+            }
+        });
+
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

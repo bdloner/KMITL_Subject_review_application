@@ -101,6 +101,7 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         Intent intent = new Intent(this, SubjectPostActivity.class);
 //        Toast.makeText(getApplicationContext(), listItems.get(position), Toast.LENGTH_SHORT).show();
         intent.putExtra("subjectSelect", listItems.get(position));
+        intent.putExtra("type", "home");
         startActivities(new Intent[]{intent});
     }
 }
