@@ -98,7 +98,7 @@ public class SubjectPostActivity extends AppCompatActivity {
                         newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
                         newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
                         newPost.get("uid").toString(), post_id, newPost.get("post_liked").toString(), newPost.get("viewer").toString(),
-                        newPost.get("user_key").toString());
+                        newPost.get("user_key").toString(),subjectSelect);
                 if(newPost.get("subject_id").toString().equals(subjectSelect)){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
                     listPosts.add(0, postItem);
                     adapter = new PostAdapter(listPosts, getApplication());

@@ -16,8 +16,9 @@ public class PostModel {
     private String post_liked ;
     private String viewer;
     private String user_key;
+    private String subjectSelect;
 
-    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid, String post_id, String post_liked, String viewer, String user_key) {
+    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid, String post_id, String post_liked, String viewer, String user_key, String subjectSelect) {
         this.description = description;
         this.post_id = post_id;
         this.score = score;
@@ -29,10 +30,19 @@ public class PostModel {
         this.post_liked = post_liked;
         this.viewer = viewer;
         this.user_key = user_key;
+        this.subjectSelect = subjectSelect;
     }
 
     public String getUser_key() {
         return user_key;
+    }
+
+    public String getSubjectSelect() {
+        return subjectSelect;
+    }
+
+    public void setSubjectSelect(String subjectSelect) {
+        this.subjectSelect = subjectSelect;
     }
 
     public void setUser_key(String user_key) {

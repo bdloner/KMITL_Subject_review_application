@@ -30,7 +30,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private Button edit_post, delete_post;
-    private String post_id, post_img;
+    private String post_id, post_img, subject_id;
     private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,9 @@ public class ViewPostActivity extends AppCompatActivity {
         image_icon = findViewById(R.id.image_icon);
         edit_post = findViewById(R.id.edit_post);
         delete_post = findViewById(R.id.delete_post);
+
+        subject_id = getIntent().getStringExtra("subjectSelect");
+
         if(user.getUid().equals(getIntent().getStringExtra("user_key"))){
             edit_post.setVisibility(View.VISIBLE);
             delete_post.setVisibility(View.VISIBLE);
@@ -78,9 +81,13 @@ public class ViewPostActivity extends AppCompatActivity {
                 mDatabase.child("post").child(post_id).removeValue();
                 mDatabase.child("Likes").child(post_id).removeValue();
                 mDatabase.child("comment").child(post_id).removeValue();
-                Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
-               startActivity(intent);
-               finish();
+                //Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
+               //startActivity(intent);
+               //finish();
+                Intent intent = new Intent(ViewPostActivity.this, SubjectPostActivity.class);
+                intent.putExtra("subjectSelect", subject_id);
+                startActivity(intent);
+                finish();
             }
         });
 
