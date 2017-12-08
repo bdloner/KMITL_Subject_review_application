@@ -14,8 +14,9 @@ public class PostModel {
     private String uid;
     private String post_id;
     private String post_liked ;
+    private String viewer;
 
-    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid, String post_id, String post_liked) {
+    public PostModel(String description,String score, String score_num, String subject_id, String timeStamp, String title, String uid, String post_id, String post_liked, String viewer) {
         this.description = description;
         this.post_id = post_id;
         this.score = score;
@@ -25,6 +26,15 @@ public class PostModel {
         this.title = title;
         this.uid = uid;
         this.post_liked = post_liked;
+        this.viewer = viewer;
+    }
+
+    public String getViewer() {
+        return viewer;
+    }
+
+    public void setViewer(String viewer) {
+        this.viewer = viewer;
     }
 
     public String getPost_liked() {

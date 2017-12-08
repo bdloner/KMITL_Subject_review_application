@@ -106,6 +106,7 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                 result.put("timeStamp", timeStamp);
                 result.put("score_num", score_num);
                 result.put("post_liked", 0);
+                result.put("viewer", 0);
                 //Log.i("sldfmksdkmfsdf",result+"");
                 mDatabase.child("post").child(key).setValue(result);
                 intent.putExtra("subjectSelect", subject_id);
