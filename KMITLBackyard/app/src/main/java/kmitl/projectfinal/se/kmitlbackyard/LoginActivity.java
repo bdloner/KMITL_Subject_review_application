@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -150,6 +152,18 @@ public class LoginActivity extends Activity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     if (!firebaseAuth.getCurrentUser().isEmailVerified()){
+                        //resend in login
+//                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(getApplicationContext(), "การส่งอีเมลล์ผิดพลาด กรุณากดส่ง email อีกรอบที่หน้า login", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
                         Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
                         Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ก่อน", Toast.LENGTH_SHORT).show();
                         startActivity(intent2);
