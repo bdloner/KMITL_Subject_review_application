@@ -1,5 +1,6 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -9,8 +10,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseUser firebaseAuth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content, new HomeFragment()).commit();
+
+        firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseAuth == null){
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Toast.makeText(getApplicationContext(), "กรุณาล็อกอินก่อน", Toast.LENGTH_SHORT).show();
+            startActivity(intent);
+            finish();
+        }
 
     }
 }

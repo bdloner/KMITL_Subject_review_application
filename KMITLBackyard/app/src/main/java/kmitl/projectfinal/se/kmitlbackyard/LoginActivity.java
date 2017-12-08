@@ -149,9 +149,16 @@ public class LoginActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    if (!firebaseAuth.getCurrentUser().isEmailVerified()){
+                        Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
+                        Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ก่อน", Toast.LENGTH_SHORT).show();
+                        startActivity(intent2);
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        return;
+                    }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                      startActivity(intent);
-//                     Log.i("authasda", firebaseAuth.getCurrentUser().getEmail()+  " "+ firebaseAuth.getCurrentUser().getDisplayName());
                      finish();
                 }
                 else {

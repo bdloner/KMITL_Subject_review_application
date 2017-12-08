@@ -17,6 +17,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -149,17 +151,28 @@ public class RegisterActivity extends Activity {
     }
 
     public void registerUser(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseAuth.createUserWithEmailAndPassword(sRegEmail.trim(),sRegPassword.trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             addData();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                             finish();
-                            Toast.makeText(getApplicationContext(), "สมัครสำเร็จ", Toast.LENGTH_SHORT).show();
+                            firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "การส่งอีเมลล์ผิดพลาด กรุณากดส่ง email อีกรอบที่หน้า login", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                            FirebaseAuth.getInstance().signOut();
                         }else{
                             Toast.makeText(getApplicationContext(), "อีเมลล์ของท่านมีอยู่ในระบบอยู่แล้ว", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
@@ -168,5 +181,6 @@ public class RegisterActivity extends Activity {
                         }
                     }
                 });
+
     }
 }
