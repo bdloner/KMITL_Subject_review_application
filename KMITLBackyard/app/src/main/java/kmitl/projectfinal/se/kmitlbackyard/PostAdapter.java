@@ -121,15 +121,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                menu.add(holder.getAdapterPosition(), 0, 0, "แก้ไข");
-                menu.add(holder.getAdapterPosition(), 1, 0, "ลบ");
-                menu.add(holder.getAdapterPosition(), 2, 0, "ยกเลิก");
-            }
-        });
-
         Query query = mDatabase.child("user");
         query.addChildEventListener(new ChildEventListener() {
             @Override
