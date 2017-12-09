@@ -92,17 +92,14 @@ public class EditTitleReviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
-
-<<<<<<< HEAD
+                
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //add post database
-=======
                 if(post_title.getText().toString().equals("")){
                     MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกหัวข้อการรีวิว", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
                     mdToast.show();
                     break;
                 }
->>>>>>> 88be740228531efd7f920f64210d4da2d8036089
 
                 //add post database
                 String score = getIntent().getStringExtra("rating");
