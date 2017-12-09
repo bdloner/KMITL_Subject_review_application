@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -96,7 +97,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 intent.putExtra("post_subject", msubject);
                 intent.putExtra("post_desc", mdesc);
                 intent.putExtra("post_date", mdate);
-
+                
                 startActivity(intent);
                 finish();
             }
