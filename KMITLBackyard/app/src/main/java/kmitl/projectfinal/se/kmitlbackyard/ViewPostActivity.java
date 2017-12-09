@@ -87,7 +87,9 @@ public class ViewPostActivity extends AppCompatActivity {
         edit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);
+
                 intent.putExtra("subjectSelect", subject_id);
                 intent.putExtra("post_rating", num_star);
                 intent.putExtra("post_id", post_id);
