@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,8 @@ public class SubjectPostActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         subjectSelect = getIntent().getStringExtra("subjectSelect");
-        Toast.makeText(getApplicationContext(), subjectSelect, Toast.LENGTH_SHORT).show();
+        MDToast mdToast = MDToast.makeText(getApplicationContext(), subjectSelect, MDToast.LENGTH_SHORT, MDToast.TYPE_INFO);
+        mdToast.show();
 
 
         writeReviewBtn.setOnClickListener(new View.OnClickListener() {

@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +51,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private Context context;
-    Toast mToast;
     private boolean mProcessLike =false;
     List<PostModel> postLists;
     @Override
@@ -60,7 +60,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         mDatabaseLike.keepSynced(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
-        mToast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
         user = firebaseAuth.getCurrentUser();
         return new ViewHolder(view);
     }
@@ -91,7 +90,8 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     listPost.setViewer(newPost.get("viewer").toString());
                     holder.amount_view.setText(newPost.get("viewer").toString());
                 }catch (Exception e){
-                    mToast.setText("Post Deleted");
+                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                    mdToast.show();
                 }
 
             }
@@ -109,7 +109,8 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
                     holder.amount_love.setText(newPost.get("post_liked").toString());
                 }catch (Exception e){
-                    mToast.setText("Post Deleted");
+                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                    mdToast.show();
                 }
 
             }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseUser firebaseAuth;
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseAuth == null){
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            Toast.makeText(getApplicationContext(), "กรุณาล็อกอินก่อน", Toast.LENGTH_SHORT).show();
+            MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณาล็อกอินก่อน", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+            mdToast.show();
             startActivity(intent);
             finish();
         }

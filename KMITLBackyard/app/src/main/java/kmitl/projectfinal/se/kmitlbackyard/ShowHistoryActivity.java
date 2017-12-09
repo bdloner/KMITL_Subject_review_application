@@ -32,7 +32,7 @@ public class ShowHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
-        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("uid"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("uid"), Toast.LENGTH_SHORT).show();
         uid = getIntent().getStringExtra("uid");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         recycler_history = findViewById(R.id.recycler_history);

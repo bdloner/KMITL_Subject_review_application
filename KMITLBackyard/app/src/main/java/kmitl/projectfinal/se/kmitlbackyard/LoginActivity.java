@@ -1,7 +1,9 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santalu.emptyview.EmptyView;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -106,12 +107,13 @@ public class LoginActivity extends Activity {
                     public void onClick(View v) {
                         String emailReset= editEmail.getText().toString();
                         if(emailReset.equals("") || emailReset.isEmpty()){
-                            Toast.makeText(getApplicationContext(), "กรุณากรอกอีเมลล์", Toast.LENGTH_SHORT).show();
+                            MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกอีเมล", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                            mdToast.show();
                         }
                         else {
                             resetPassword(emailReset);
+                            dialog.dismiss();
                         }
-                        dialog.dismiss();
                     }
                 });
             }
@@ -124,10 +126,12 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(), "รีพาสเวิร์ดสำเร็จ กรุณาตรวจสอบอีเมลล์ของท่าน", Toast.LENGTH_SHORT).show();
+                            MDToast mdToast = MDToast.makeText(getApplicationContext(), "รีพาสเวิร์ดสำเร็จ กรุณาตรวจสอบอีเมลล์ของท่าน", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                            mdToast.show();
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "กรุณาลองอีกครั้ง", Toast.LENGTH_SHORT).show();
+                            MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณาลองอีกครั้ง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                            mdToast.show();
                         }
                     }
                 });
@@ -138,11 +142,13 @@ public class LoginActivity extends Activity {
         inppassword = loginPassword.getText().toString();
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(inpemail);
         if (inppassword.equals("") || inpemail.equals("")){
-            Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
+            MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+            mdToast.show();
             return;
         }
         else if(!matcher.find()){
-            Toast.makeText(getApplicationContext(), "กรุณากรอกเมลล์ให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+            MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกอีเมลให้ถูกต้อง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+            mdToast.show();
             loginPassword.setText("");
             return;
         }
@@ -156,27 +162,33 @@ public class LoginActivity extends Activity {
 //                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
 //                            @Override
 //                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
+//                                mdToast.show();
 //                            }
 //                        }).addOnFailureListener(new OnFailureListener() {
 //                            @Override
 //                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(getApplicationContext(), "การส่งอีเมลล์ผิดพลาด กรุณากดส่ง email อีกรอบที่หน้า login", Toast.LENGTH_SHORT).show();
+//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลผิดผลาด ระบบจะส่งตัวยืนยันไปให้ใหม่" + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+//                                mdToast.show();
 //                            }
 //                        });
+
                         Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
-                        Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ก่อน", Toast.LENGTH_SHORT).show();
+                        MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลก่อน", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                        mdToast.show();
                         startActivity(intent2);
+
                         FirebaseAuth.getInstance().signOut();
                         finish();
                         return;
                     }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                     startActivity(intent);
-                     finish();
+                    startActivity(intent);
+                    finish();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกอีเมลล์/พาสเวิร์ดให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกอีเมลหรือพาสเวิร์ดให้ถูกต้อง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();

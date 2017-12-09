@@ -38,6 +38,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/plus_img"
+            app:layout_constraintEnd_toStartOf="@+id/history_img"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView2" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/history_img"
             android:layout_width="75dp"

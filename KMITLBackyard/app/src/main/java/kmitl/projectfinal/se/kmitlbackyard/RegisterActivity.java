@@ -1,6 +1,7 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.santalu.emptyview.EmptyView;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,22 +85,26 @@ public class RegisterActivity extends Activity {
                 Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(sRegEmail);
                 //sameEmail();
                 if(sRegEmail.equals("") || sRegPassword.equals("") || sRegConfirmPassword.equals("") || sRegNickname.equals("")){
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                     regPassword.setText("");
                     regConfirmPassword.setText("");
                 }
                 else if(!sRegPassword.equals(sRegConfirmPassword)){
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกพาสเวิร์ดใหม่", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกพาสเวิร์ดใหม่", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                     regPassword.setText("");
                     regConfirmPassword.setText("");
                 }
                 else if(!matcher.find()){
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกเมลล์ให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกเมลล์ให้ถูกต้อง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                     regPassword.setText("");
                     regConfirmPassword.setText("");
                 }
                 else if(sRegPassword.length() < 6){
-                    Toast.makeText(getApplicationContext(), "พาสเวิร์ดต้องมีมากกว่า6ตัว", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "พาสเวิร์ดต้องมีมากกว่า 6 ตัว", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                     regPassword.setText("");
                     regConfirmPassword.setText("");
                 }
@@ -132,7 +138,8 @@ public class RegisterActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Add Data success", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "เพิ่มข้อมูลลงฐานข้อมูลสำเร็จ", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                    mdToast.show();
                 }
             }
         });
@@ -163,18 +170,21 @@ public class RegisterActivity extends Activity {
                             firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
+                                    mdToast.show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getApplicationContext(), "การส่งอีเมลล์ผิดพลาด กรุณากดส่ง email อีกรอบที่หน้า login", Toast.LENGTH_SHORT).show();
+                                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลล์ผิดพลาด กรุณากดส่งอีเมลอีกรอบ", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                                    mdToast.show();
                                 }
                             });
 
                             FirebaseAuth.getInstance().signOut();
                         }else{
-                            Toast.makeText(getApplicationContext(), "อีเมลล์ของท่านมีอยู่ในระบบอยู่แล้ว", Toast.LENGTH_SHORT).show();
+                            MDToast mdToast = MDToast.makeText(getApplicationContext(), "อีเมลล์ของท่านมีอยู่ในระบบอยู่แล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                            mdToast.show();
                             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                             startActivity(intent);
                             finish();

@@ -14,13 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,11 +208,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                         startActivity(intent2);
                     }
                     else {
-                        Toast.makeText(getContext(), "กรุณากรอกชื่อวิชาและรหัสวิชาให้ถูกต้อง", Toast.LENGTH_SHORT).show();
+                        MDToast mdToast = MDToast.makeText(getActivity(), "กรุณากรอกชื่อวิชาและรหัสวิชาให้ถูกต้อง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                        mdToast.show();
                     }
                 }
                 else {
-                    Toast.makeText(getContext(), "กรุณากรอกชื่อวิชาและรหัสวิชาในช่องว่าง", Toast.LENGTH_SHORT).show();
+                    MDToast mdToast = MDToast.makeText(getActivity(), "กรุณากรอกชื่อวิชาและรหัสวิชาในช่องว่าง", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
                 }
 
                 break;
