@@ -81,9 +81,6 @@ public class ViewPostActivity extends AppCompatActivity {
                 mDatabase.child("post").child(post_id).removeValue();
                 mDatabase.child("Likes").child(post_id).removeValue();
                 mDatabase.child("comment").child(post_id).removeValue();
-                //Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
-               //startActivity(intent);
-               //finish();
                 Intent intent = new Intent(ViewPostActivity.this, SubjectPostActivity.class);
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);

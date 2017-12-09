@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,6 +58,7 @@ public class MeFragment extends Fragment {
     DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private Button logout_btn;
+    ImageView plus;
     String profileImageUrl;
     CircleImageView circleImageView2,history_img;
     private static final int CHOOSE_IMAGE = 101;
@@ -78,6 +80,7 @@ public class MeFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         profile_email = v.findViewById(R.id.profile_email);
         circleImageView2 = v.findViewById(R.id.circleImageView2);
+        plus = v.findViewById(R.id.plus);
         profile_nickname = v.findViewById(R.id.profile_nickname);
         save_btn =  v.findViewById(R.id.save_btn);
         emptyView = v.findViewById(R.id.layout_content_container);
@@ -97,6 +100,13 @@ public class MeFragment extends Fragment {
         });
 
         circleImageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageChooser();
+            }
+        });
+
+        plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showImageChooser();
@@ -125,6 +135,17 @@ public class MeFragment extends Fragment {
                 result.put("email", String.valueOf(profile_email.getText().toString()));
                 result.put("nickname", String.valueOf(nick));
                 result.put("role", role);
+                if (uriProfileImage ==  null){
+                    if(user.getPhotoUrl() == null || user.getPhotoUrl().toString().equals("")){
+                        result.put("profileImgLink", "null");
+                    }
+                    else{
+                        result.put("profileImgLink", user.getPhotoUrl().toString());
+                    }
+                }
+                else {
+                    result.put("profileImgLink", profileImageUrl);
+                }
                 databaseReference.child("user").child(user.getUid()).setValue(result);
             }
         });
@@ -133,6 +154,7 @@ public class MeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ShowHistoryActivity.class);
                 intent.putExtra("uid", user.getDisplayName());
+                intent.putExtra("user_key", user.getUid());
                 startActivity(intent);
             }
         });
@@ -222,8 +244,6 @@ public class MeFragment extends Fragment {
                     Toast.makeText(getContext(), "อัพโหลดภาพไม่สำเร็จ", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
     }
 

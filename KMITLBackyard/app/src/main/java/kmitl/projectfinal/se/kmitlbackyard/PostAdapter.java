@@ -268,6 +268,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ShowHistoryActivity.class);
                 intent.putExtra("uid", listPost.getUid());
+                intent.putExtra("user_key", listPost.getUser_key());
                 context.startActivity(intent);
             }
         });
@@ -277,6 +278,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ShowHistoryActivity.class);
                 intent.putExtra("uid", listPost.getUid());
+                intent.putExtra("user_key", listPost.getUser_key());
                 context.startActivity(intent);
             }
         });
