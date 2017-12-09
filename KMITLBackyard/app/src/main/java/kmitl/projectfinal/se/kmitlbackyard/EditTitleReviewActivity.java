@@ -92,6 +92,7 @@ public class EditTitleReviewActivity extends AppCompatActivity {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
 
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //add post database
 
                 String score = getIntent().getStringExtra("rating");

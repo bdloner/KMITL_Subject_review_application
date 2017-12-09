@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_desc">
+                app:layout_constraintTop_toBottomOf="@+id/post_date">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -51,10 +51,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="36dp"
                         android:layout_marginStart="36dp"
+                        app:icon_size="25dp"
                         app:icon_type="heart"
                         app:like_drawable="@drawable/loved"
-                        app:unlike_drawable="@drawable/love"
-                        app:icon_size="25dp" />
+                        app:unlike_drawable="@drawable/love" />
 
                     <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                         android:id="@+id/amount_love"
@@ -208,18 +208,50 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_subjet" />
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/txt_touch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:text="แตะเพื่อดูรายละเอียดเพิ่มเติม"
+                android:textSize="16dp"
+                android:textColor="#d2d2d2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="8dp"
+                android:text="โพสต์เมื่อ : "
+                android:textSize="18dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/post_desc" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/post_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/post_rating"
                 android:layout_alignStart="@+id/post_rating"
                 android:layout_below="@+id/post_rating"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="โพสต์เมื่อ 2 ชม.ที่แล้ว"
+                android:text="2 ชม.ที่แล้ว"
                 android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/txt_date"
+                app:layout_constraintTop_toBottomOf="@+id/post_desc" />
 
         </android.support.constraint.ConstraintLayout>
 

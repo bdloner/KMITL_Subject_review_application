@@ -82,8 +82,6 @@ public class ViewPostActivity extends AppCompatActivity {
             Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
         }
 
-
-
         edit_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +101,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         delete_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
