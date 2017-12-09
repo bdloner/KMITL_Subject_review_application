@@ -157,31 +157,31 @@ public class LoginActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    if (!firebaseAuth.getCurrentUser().isEmailVerified()){
-                        //resend in login
-//                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
-//                                mdToast.show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลผิดผลาด ระบบจะส่งตัวยืนยันไปให้ใหม่" + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
-//                                mdToast.show();
-//                            }
-//                        });
-
-                        Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
-                        MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลก่อน", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
-                        mdToast.show();
-                        startActivity(intent2);
-
-                        FirebaseAuth.getInstance().signOut();
-                        finish();
-                        return;
-                    }
+//                    if (!firebaseAuth.getCurrentUser().isEmailVerified()){
+//                        //resend in login
+////                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+////                            @Override
+////                            public void onSuccess(Void aVoid) {
+////                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ที่: " + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
+////                                mdToast.show();
+////                            }
+////                        }).addOnFailureListener(new OnFailureListener() {
+////                            @Override
+////                            public void onFailure(@NonNull Exception e) {
+////                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลผิดผลาด ระบบจะส่งตัวยืนยันไปให้ใหม่" + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+////                                mdToast.show();
+////                            }
+////                        });
+//
+//                        Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
+//                        MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลก่อน", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+//                        mdToast.show();
+//                        startActivity(intent2);
+//
+//                        FirebaseAuth.getInstance().signOut();
+//                        finish();
+//                        return;
+//                    }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();

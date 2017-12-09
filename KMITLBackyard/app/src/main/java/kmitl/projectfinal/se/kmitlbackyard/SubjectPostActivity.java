@@ -78,6 +78,7 @@ public class SubjectPostActivity extends AppCompatActivity {
         mdToast.show();
 
 
+        checkWriteReviewBtn();
         writeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +86,44 @@ public class SubjectPostActivity extends AppCompatActivity {
                 intent.putExtra("subjectSelect", subjectSelect);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void checkWriteReviewBtn() {
+        Query query = mDatabase.child("user");
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, Object> dataset = (Map<String, Object>) dataSnapshot.getValue();
+                if(dataSnapshot.getKey().equals(user.getUid())){
+                    if (dataset.get("role").toString().equals("student")){
+                        writeReviewBtn.setVisibility(View.VISIBLE);
+                    }
+                    else if (dataset.get("role").toString().equals("teacher")){
+                        writeReviewBtn.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

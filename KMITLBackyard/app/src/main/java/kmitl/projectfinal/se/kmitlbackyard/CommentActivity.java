@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +41,7 @@ public class CommentActivity extends Activity{
     private List<CommentModel> listComments;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private FrameLayout frameLayout5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +53,12 @@ public class CommentActivity extends Activity{
         addComment = findViewById(R.id.add_comment);
         timeStamp = getCurrentTime();
         recyclerView = findViewById(R.id.comment_listview);
+        frameLayout5 = findViewById(R.id.frameLayout5);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDatabase = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
+        ableToSendComment();
         Bundle bundle =getIntent().getExtras();
         if(bundle != null){
             post_id = bundle.getString("post_id");
@@ -97,6 +101,45 @@ public class CommentActivity extends Activity{
         });
 
     }
+
+    private void ableToSendComment() {
+        Query query = mDatabase.child("user");
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, Object> dataset = (Map<String, Object>) dataSnapshot.getValue();
+                if(dataSnapshot.getKey().equals(user.getUid())){
+                    if (dataset.get("role").toString().equals("student")){
+                        frameLayout5.setVisibility(View.VISIBLE);
+                    }
+                    else if (dataset.get("role").toString().equals("teacher")){
+                        frameLayout5.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     public void sendComment(View view) {
         HashMap<String, Object> result = new HashMap<>();

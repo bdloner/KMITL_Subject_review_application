@@ -35,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.santalu.emptyview.EmptyView;
 import com.squareup.picasso.Picasso;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -115,7 +116,9 @@ public class MeFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         emptyView.showContent();
-                        Toast.makeText(getContext(),"อัพเดทข้อมูลสำเร็จ", Toast.LENGTH_SHORT).show();
+
+                        MDToast mdToast = MDToast.makeText(getContext(), "อัพเดทข้อมูลสำเร็จ", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                        mdToast.show();
                     }
                 });
                 HashMap<String, Object> result = new HashMap<>();
@@ -180,7 +183,6 @@ public class MeFragment extends Fragment {
         if(user.getPhotoUrl() != null){
             Picasso.with(getContext()).load(user.getPhotoUrl()).fit().centerCrop().into(circleImageView2);
         }
-
     }
 
     @Override

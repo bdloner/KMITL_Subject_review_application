@@ -124,12 +124,6 @@ public class RegisterActivity extends Activity {
     }
 
     private void addData() {
-//        Map<String, Object> his = new HashMap();
-//        his.put("email", String.valueOf(sRegEmail));
-//        his.put("password", String.valueOf(sRegPassword));
-//        his.put("nickname", String.valueOf(sRegNickname));
-//        his.put("image", "image");
-//        mFirebase.child("user").push().setValue(his);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setDisplayName(sRegNickname)
