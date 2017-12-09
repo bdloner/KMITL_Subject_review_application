@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,6 +84,8 @@ public class ViewPostActivity extends AppCompatActivity {
                 mDatabase.child("comment").child(post_id).removeValue();
                 Intent intent = new Intent(ViewPostActivity.this, SubjectPostActivity.class);
                 intent.putExtra("subjectSelect", subject_id);
+                MDToast mdToast = MDToast.makeText(getApplicationContext(), "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                mdToast.show();
                 startActivity(intent);
                 finish();
             }

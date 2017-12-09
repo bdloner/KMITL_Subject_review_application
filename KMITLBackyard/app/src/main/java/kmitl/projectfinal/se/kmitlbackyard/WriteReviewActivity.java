@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.valdesekamdem.library.mdtoast.MDToast;
+
 public class WriteReviewActivity extends AppCompatActivity {
 
     private EditText comment;
@@ -37,6 +39,11 @@ public class WriteReviewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_menu_next:
+                if(comment.getText().toString().equals("")){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลการรีวิว", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    break;
+                }
                 Intent intent = new Intent(this, AddTitleReviewActivity.class);
                 intent.putExtra("comment", comment.getText().toString());
                 intent.putExtra("rating", String.valueOf(ratingBar.getRating()));

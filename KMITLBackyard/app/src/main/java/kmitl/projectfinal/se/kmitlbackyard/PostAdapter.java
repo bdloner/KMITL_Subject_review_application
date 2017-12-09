@@ -1,5 +1,6 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -80,7 +81,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.amount_comment.setText(String.valueOf(0));
         holder.amount_love.setText(listPost.getPost_liked());
         holder.amount_view.setText(listPost.getViewer());
-
         Query query4 = mDatabase.child("post").child(listPost.getPost_id());
         query4.addValueEventListener(new ValueEventListener() {
             @Override
@@ -90,8 +90,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     listPost.setViewer(newPost.get("viewer").toString());
                     holder.amount_view.setText(newPost.get("viewer").toString());
                 }catch (Exception e){
-                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
-                    mdToast.show();
+
                 }
 
             }
@@ -227,7 +226,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("user_key", listPost.getUser_key());
                 intent.putExtra("subjectSelect", listPost.getSubjectSelect());
                 context.startActivity(intent);
-
             }
         });
         holder.postLove.setOnLikeListener(new OnLikeListener() {
