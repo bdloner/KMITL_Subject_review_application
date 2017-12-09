@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -92,8 +93,13 @@ public class EditTitleReviewActivity extends AppCompatActivity {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
 
-                //add post database
+                if(post_title.getText().toString().equals("")){
+                    MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกหัวข้อการรีวิว", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                    mdToast.show();
+                    break;
+                }
 
+                //add post database
                 String score = getIntent().getStringExtra("rating");
                 String description = getIntent().getStringExtra("comment");
                 String title = this.post_title.getText().toString();

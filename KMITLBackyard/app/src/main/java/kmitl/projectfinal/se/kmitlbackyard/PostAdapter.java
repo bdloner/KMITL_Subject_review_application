@@ -108,8 +108,8 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
                     holder.amount_love.setText(newPost.get("post_liked").toString());
                 }catch (Exception e){
-                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
-                    mdToast.show();
+//                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+//                    mdToast.show();
                 }
 
             }
