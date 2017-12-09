@@ -1,7 +1,9 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +34,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private Button edit_post, delete_post;
     private String post_id, post_img, subject_id;
     private Context context;
+    private String num_star, mnickname, mtitle, msubject, mdesc, mdate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,37 +60,76 @@ public class ViewPostActivity extends AppCompatActivity {
             edit_post.setVisibility(View.VISIBLE);
             delete_post.setVisibility(View.VISIBLE);
         }
-        post_nickname.setText(getIntent().getStringExtra("post_nickname"));
-        post_title.setText(getIntent().getStringExtra("post_title"));
-        post_subject.setText(getIntent().getStringExtra("post_subject"));
-        post_desc.setText(getIntent().getStringExtra("post_desc"));
-        post_rating.setRating(Float.parseFloat(getIntent().getStringExtra("post_rating")));
-        post_date.setText(getIntent().getStringExtra("post_date"));
+        Bundle bundle =getIntent().getExtras();
+        if(bundle != null){
+            post_id = bundle.getString("post_id");
+            num_star = bundle.getString("post_rating");
+            mnickname = bundle.getString("post_nickname");
+            mtitle = bundle.getString("post_title");
+            msubject = bundle.getString("post_subject");
+            mdesc = bundle.getString("post_desc");
+            mdate = bundle.getString("post_date");
+
+        }
+        post_nickname.setText(mnickname);
+        post_title.setText(mtitle);
+        post_subject.setText(msubject);
+        post_desc.setText(mdesc);
+        post_rating.setRating(Float.parseFloat(num_star));
+        post_date.setText(mdate);
 
         if(getIntent().getStringExtra("post_profile_link") != null && !getIntent().getStringExtra("post_profile_link").equals("")){
             Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
         }
 
 
-        Bundle bundle =getIntent().getExtras();
-        if(bundle != null){
-            post_id = bundle.getString("post_id");
-        }
 
+        edit_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditPostActivity.class);
+                intent.putExtra("subjectSelect", subject_id);
+                intent.putExtra("post_rating", num_star);
+                intent.putExtra("post_id", post_id);
+                intent.putExtra("post_nickname", mnickname);
+                intent.putExtra("post_title", mtitle);
+                intent.putExtra("post_subject", msubject);
+                intent.putExtra("post_desc", mdesc);
+                intent.putExtra("post_date", mdate);
 
+                startActivity(intent);
+                finish();
+            }
+        });
         delete_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDatabase.child("post").child(post_id).removeValue();
-                mDatabase.child("Likes").child(post_id).removeValue();
-                mDatabase.child("comment").child(post_id).removeValue();
-                //Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
-               //startActivity(intent);
-               //finish();
-                Intent intent = new Intent(ViewPostActivity.this, SubjectPostActivity.class);
-                intent.putExtra("subjectSelect", subject_id);
-                startActivity(intent);
-                finish();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ViewPostActivity.this);
+                builder.setMessage("คุณยืนยันที่จะลบโพสนี้หรือไม่?");
+                builder.setCancelable(true);
+                builder.setNegativeButton("ยืนยัน", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mDatabase.child("post").child(post_id).removeValue();
+                        mDatabase.child("Likes").child(post_id).removeValue();
+                        mDatabase.child("comment").child(post_id).removeValue();
+                        //Intent intent = new Intent(ViewPostActivity.this, MainActivity.class);
+                        //startActivity(intent);
+                        //finish();
+                        Intent intent = new Intent(ViewPostActivity.this, SubjectPostActivity.class);
+                        intent.putExtra("subjectSelect", subject_id);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setPositiveButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         });
 

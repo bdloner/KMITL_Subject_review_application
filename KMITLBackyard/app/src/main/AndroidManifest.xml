@@ -53,6 +53,10 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ShowHistoryActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".EditPostActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditTitleReviewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
