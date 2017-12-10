@@ -28,7 +28,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ListSubjectActivity"
             android:parentActivityName=".MainActivity"
@@ -53,13 +53,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ShowHistoryActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditPostActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EditTitleReviewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".EditCommentActivity"></activity>
     </application>
 
 </manifest>
