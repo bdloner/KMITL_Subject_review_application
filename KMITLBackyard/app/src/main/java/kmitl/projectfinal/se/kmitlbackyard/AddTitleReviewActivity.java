@@ -113,7 +113,7 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                 result.put("subject_id", subject_id);
                 result.put("timeStamp", timeStamp);
                 result.put("score_num", score_num);
-                result.put("post_liked", String.valueOf(0));
+                //result.put("post_liked", String.valueOf(0));
                 result.put("user_key", user.getUid());
                 //result.put("viewer", String.valueOf(0));
                 //Log.i("sldfmksdkmfsdf",result+"");
