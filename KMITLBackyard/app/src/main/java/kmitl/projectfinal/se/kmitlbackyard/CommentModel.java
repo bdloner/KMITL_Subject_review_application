@@ -8,12 +8,21 @@ public class CommentModel {
     private String content;
     private String timeStamp;
     private String uid;
+    private String key;
 
-    public CommentModel(String content,  String timeStamp, String uid) {
+    public CommentModel(String content,  String timeStamp, String uid, String key) {
         this.content = content;
-
+        this.key = key;
         this.timeStamp = timeStamp;
         this.uid = uid;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getContent() {

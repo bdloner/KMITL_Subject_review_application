@@ -189,6 +189,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     }
                 });
+                holder.amount_comment.setText(String.valueOf(holder.num_comment));
             }
 
             @Override

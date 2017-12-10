@@ -2,11 +2,13 @@ package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -47,13 +49,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final CommentModel listComment = itemList.get(position);
         holder.comment_desc.setText(listComment.getContent());
         holder.comment_nickname.setText(listComment.getUid());
-
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
                 menu.add(holder.getAdapterPosition(), 0, 0, "แก้ไข");
                 menu.add(holder.getAdapterPosition(), 1, 0, "ลบ");
                 menu.add(holder.getAdapterPosition(), 2, 0, "ยกเลิก");
+
             }
         });
 
