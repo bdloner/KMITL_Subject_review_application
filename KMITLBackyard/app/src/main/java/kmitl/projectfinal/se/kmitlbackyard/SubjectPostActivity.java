@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -85,7 +86,7 @@ public class SubjectPostActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), WriteReviewActivity.class);
                 intent.putExtra("subjectSelect", subjectSelect);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
     }
@@ -168,5 +169,15 @@ public class SubjectPostActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

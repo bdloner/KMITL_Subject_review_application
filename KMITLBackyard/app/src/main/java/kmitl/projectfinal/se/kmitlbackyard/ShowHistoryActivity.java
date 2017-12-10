@@ -1,9 +1,12 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +25,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShowHistoryActivity extends AppCompatActivity {
+public class ShowHistoryActivity extends Activity {
     private RecyclerView recycler_history;
     private DatabaseReference mDatabase;
     private List<PostModel> listPosts;
@@ -31,7 +34,7 @@ public class ShowHistoryActivity extends AppCompatActivity {
     private String user_key;
     private CircleImageView history_img_profile;
     private CustomTextView history_nickname;
-
+    private Button backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,17 @@ public class ShowHistoryActivity extends AppCompatActivity {
         listPosts = new ArrayList<>();
         history_img_profile = findViewById(R.id.history_img_profile);
         history_nickname = findViewById(R.id.history_nickname);
+        backBtn = findViewById(R.id.back_btn);
+
         queryPost(uid);
         queryUserInfo(user_key);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void queryUserInfo(final String uid) {

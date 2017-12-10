@@ -35,7 +35,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".SubjectPostActivity"
-            android:parentActivityName=".SubjectPostActivity"
+            android:parentActivityName=".ListSubjectActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WriteReviewActivity"
@@ -51,11 +51,14 @@
         <activity
             android:name=".ViewPostActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ShowHistoryActivity"
+        <activity
+            android:name=".ShowHistoryActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".EditPostActivity"
+        <activity
+            android:name=".EditPostActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".EditTitleReviewActivity"
+        <activity
+            android:name=".EditTitleReviewActivity"
             android:screenOrientation="portrait"/>
     </application>
 

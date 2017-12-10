@@ -6,11 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +40,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         setContentView(R.layout.activity_list_subject);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         listView = findViewById(R.id.list_view);
         editText = findViewById(R.id.txt_search);
@@ -100,5 +101,15 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         intent.putExtra("subjectSelect", listItems.get(position));
         intent.putExtra("type", "home");
         startActivities(new Intent[]{intent});
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

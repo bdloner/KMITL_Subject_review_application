@@ -92,7 +92,7 @@ public class EditTitleReviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.item_menu_post:
                 Intent intent = new Intent(this, SubjectPostActivity.class);
-                
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //add post database
                 if(post_title.getText().toString().equals("")){

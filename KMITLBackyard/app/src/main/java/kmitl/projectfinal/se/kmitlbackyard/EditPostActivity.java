@@ -69,7 +69,7 @@ public class EditPostActivity extends AppCompatActivity {
                     intent.putExtra("post_title", mtitle);
                     intent.putExtra("post_id", post_id);
                     startActivity(intent);
-                    finish();
+//                    finish();
                     break;
                 case android.R.id.home:
                     this.finish();

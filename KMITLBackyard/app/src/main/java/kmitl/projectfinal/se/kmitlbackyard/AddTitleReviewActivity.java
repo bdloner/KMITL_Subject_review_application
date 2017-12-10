@@ -122,7 +122,7 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                 finish();
                 break;
             case android.R.id.home:
-                this.finish();
+                finish();
                 break;
         }
         return true;
