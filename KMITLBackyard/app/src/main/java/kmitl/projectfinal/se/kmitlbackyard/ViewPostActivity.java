@@ -162,6 +162,7 @@ public class ViewPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);
                 intent.putExtra("uid", getIntent().getStringExtra("post_nickname"));
+                intent.putExtra("user_key", getIntent().getStringExtra("user_key"));
                 startActivity(intent);
             }
         });
@@ -171,6 +172,7 @@ public class ViewPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);
                 intent.putExtra("uid", getIntent().getStringExtra("post_nickname"));
+                intent.putExtra("user_key", getIntent().getStringExtra("user_key"));
                 startActivity(intent);
             }
         });
