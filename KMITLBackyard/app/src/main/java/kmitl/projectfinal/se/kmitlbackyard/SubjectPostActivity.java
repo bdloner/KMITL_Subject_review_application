@@ -89,6 +89,26 @@ public class SubjectPostActivity extends AppCompatActivity {
 //                finish();
             }
         });
+
+        img_nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SubjectPostActivity.this, ShowHistoryActivity.class);
+                intent.putExtra("uid", user.getDisplayName());
+                intent.putExtra("user_key", user.getUid());
+                startActivity(intent);
+            }
+        });
+
+        post_nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SubjectPostActivity.this, ShowHistoryActivity.class);
+                intent.putExtra("uid", user.getDisplayName());
+                intent.putExtra("user_key", user.getUid());
+                startActivity(intent);
+            }
+        });
     }
 
     private void checkWriteReviewBtn() {
