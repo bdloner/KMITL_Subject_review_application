@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.HashMap;
 
@@ -46,6 +47,8 @@ public class EditCommentActivity extends Activity {
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("content", oldComment.getText().toString());
                 mDatabase.child("comment").child(post_id).child(key_commment).updateChildren(result);
+                MDToast mdToast = MDToast.makeText(getApplicationContext(), "คอมเมนต์ถูกแก้ไขแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                mdToast.show();
                 intent.putExtra("post_id", post_id);
                 startActivity(intent);
                 finish();

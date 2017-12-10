@@ -9,12 +9,22 @@ public class CommentModel {
     private String timeStamp;
     private String uid;
     private String key;
+    private String user_key;
 
-    public CommentModel(String content,  String timeStamp, String uid, String key) {
+    public CommentModel(String content,  String timeStamp, String uid, String key, String user_key) {
         this.content = content;
         this.key = key;
         this.timeStamp = timeStamp;
         this.uid = uid;
+        this.user_key = user_key;
+    }
+
+    public String getUser_key() {
+        return user_key;
+    }
+
+    public void setUser_key(String user_key) {
+        this.user_key = user_key;
     }
 
     public String getKey() {

@@ -18,6 +18,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewPostActivity extends AppCompatActivity {
@@ -35,8 +38,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private Button edit_post, delete_post;
     private String post_id, post_img, subject_id;
-    private Context context;
-    private String num_star, mnickname, mtitle, msubject, mdesc, mdate, type;
+    private String num_star, mnickname, mtitle, msubject, mdesc, mdate, type, viewer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,12 @@ public class ViewPostActivity extends AppCompatActivity {
             mdesc = bundle.getString("post_desc");
             mdate = bundle.getString("post_date");
             type = bundle.getString("type");
+            viewer = bundle.getString("viewer");
         }
+        Map<String, Object> like = new HashMap<String, Object>();
+        like.put("viewer", String.valueOf(Integer.parseInt(viewer)+1));
+        mDatabase.child("view").child(post_id).updateChildren(like);
+
         post_nickname.setText(mnickname);
         post_title.setText(mtitle);
         post_subject.setText(msubject);
@@ -117,7 +124,8 @@ public class ViewPostActivity extends AppCompatActivity {
                         mDatabase.child("post").child(post_id).removeValue();
                         mDatabase.child("Likes").child(post_id).removeValue();
                         mDatabase.child("comment").child(post_id).removeValue();
-
+                        MDToast mdToast = MDToast.makeText(getApplicationContext(), "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                        mdToast.show();
                         Intent intent;
                         if(type.equals("history")){
                             intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);

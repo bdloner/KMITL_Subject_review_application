@@ -124,6 +124,8 @@ public class EditTitleReviewActivity extends AppCompatActivity {
                 result.put("title", title);
                 //Log.i("sldfmksdkmfsdf",result+"");
                 mDatabase.child("post").child(post_id).updateChildren(result);
+                MDToast mdToast = MDToast.makeText(getApplicationContext(), "โพสต์ถูกแก้ไขแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                mdToast.show();
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
 

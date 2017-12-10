@@ -76,42 +76,19 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.post_date.setText(listPost.getTimeStamp());
         holder.setLikeBtn(listPost.getPost_id());
         holder.post_id = listPost.getPost_id();
-        holder.post_liked = listPost.getPost_liked();
+        holder.num_like = 0;
         holder.num_comment = 0;
-        holder.amount_comment.setText(String.valueOf(0));
-        holder.amount_love.setText(listPost.getPost_liked());
-        holder.amount_view.setText(listPost.getViewer());
-        Query query4 = mDatabase.child("post").child(listPost.getPost_id());
+        //holder.amount_view.setText(String.valueOf(listPost.getViewer()));
+       // holder.amount_comment.setText(String.valueOf(0));
+       // holder.amount_love.setText(String.valueOf(0));
+
+        final Query query4 = mDatabase.child("view").child(holder.post_id);
         query4.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                    listPost.setViewer(newPost.get("viewer").toString());
-                    holder.amount_view.setText(newPost.get("viewer").toString());
-                }catch (Exception e){
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        Query query1 = mDatabase.child("post").child(listPost.getPost_id());
-        query1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                    holder.amount_love.setText(newPost.get("post_liked").toString());
-                }catch (Exception e){
-//                    MDToast mdToast = MDToast.makeText(context, "โพสต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
-//                    mdToast.show();
-                }
-
+                Map<String, Object> result = (Map<String, Object>) dataSnapshot.getValue();
+                holder.viewer = result.get("viewer").toString();
+                holder.amount_view.setText(String.valueOf(holder.viewer));
             }
 
             @Override
@@ -120,7 +97,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        Query query = mDatabase.child("user");
+        final Query query = mDatabase.child("user");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -164,7 +141,6 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Map<String, Object> newComment = (Map<String, Object>) dataSnapshot.getValue();
-
                             holder.num_comment += 1;
                             holder.amount_comment.setText(String.valueOf(holder.num_comment));
 
@@ -200,11 +176,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                listPost.setViewer(String.valueOf(Integer.parseInt(listPost.getViewer())+1));
-                Map<String, Object> like = new HashMap<String, Object>();
-                like.put("viewer", Integer.parseInt(listPost.getViewer()));
-                mDatabase.child("post").child(listPost.getPost_id()).updateChildren(like);
+               // listPost.setViewer(String.valueOf(Integer.parseInt(listPost.getViewer())+1));
                 Intent intent = new Intent(context, ViewPostActivity.class);
                 intent.putExtra("post_nickname", listPost.getUid());
                 intent.putExtra("post_title", listPost.getTitle());
@@ -213,10 +185,11 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_rating", listPost.getScore());
                 intent.putExtra("post_date", listPost.getTimeStamp());
                 intent.putExtra("post_profile_link", holder.post_profile_link);
-                intent.putExtra("post_ImgLink", listPost.getViewer());
+               // intent.putExtra("post_ImgLink", listPost.getViewer());
                 intent.putExtra("post_id",  listPost.getPost_id());
                 intent.putExtra("user_key", listPost.getUser_key());
                 intent.putExtra("subjectSelect", listPost.getSubjectSelect());
+                intent.putExtra("viewer", String.valueOf(holder.viewer));
                 intent.putExtra("type", listPost.getType());
                 context.startActivity(intent);
             }
@@ -224,26 +197,58 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.postLove.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
-                listPost.setPost_liked(String.valueOf(Integer.parseInt(listPost.getPost_liked())+1));
-                Map<String, Object> like = new HashMap<String, Object>();
-                like.put("post_liked", Integer.parseInt(listPost.getPost_liked()));
-                mDatabase.child("post").child(listPost.getPost_id()).updateChildren(like);
-               // holder.amount_love.setText(listPost.getPost_liked());
                holder.queryLike();
 
             }
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                listPost.setPost_liked(String.valueOf(Integer.parseInt(listPost.getPost_liked())-1));
-                Map<String, Object> like = new HashMap<String, Object>();
-                like.put("post_liked", Integer.parseInt(listPost.getPost_liked()));
-                mDatabase.child("post").child(listPost.getPost_id()).updateChildren(like);
-               // holder.amount_love.setText(listPost.getPost_liked());
                 holder.queryLike();
             }
         });
+        Query querynewlike = mDatabase.child("Likes");
+        querynewlike.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                holder.num_like=0;
+                // holder.amount_comment.setText(String.valueOf(holder.num_comment));
+                Query querynewlike2 = mDatabase.child("Likes").child(holder.post_id);
+                querynewlike2.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                       // Map<String, Object> newComment = (Map<String, Object>) dataSnapshot.getValue();
+                        holder.num_like += 1;
+                        holder.amount_love.setText(String.valueOf(holder.num_like));
 
+                    }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                holder.amount_love.setText(String.valueOf(holder.num_like));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         holder.postComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,9 +297,9 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private RatingBar post_rating;
         private CustomTextView post_date;
         private CircleImageView image_icon;
-        private String post_profile_link, post_id;
+        private String post_profile_link, post_id, viewer;
         private Context context;
-        private int num_comment;
+        private int num_comment, num_like;
         DatabaseReference mdatabaseLike;
         FirebaseAuth mAuth;
         public String post_liked;
@@ -307,6 +312,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             amount_view = itemView.findViewById(R.id.amount_view);
             postLove = itemView.findViewById(R.id.post_love);
             num_comment = 0;
+            num_like = 0;
             cardView = itemView.findViewById(R.id.card_view);
             amount_love = itemView.findViewById(R.id.amount_love);
             post_nickname = itemView.findViewById(R.id.post_nickname);

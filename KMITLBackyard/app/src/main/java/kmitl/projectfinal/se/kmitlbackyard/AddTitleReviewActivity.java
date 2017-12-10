@@ -113,11 +113,14 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                 result.put("subject_id", subject_id);
                 result.put("timeStamp", timeStamp);
                 result.put("score_num", score_num);
-                result.put("post_liked", 0);
+                result.put("post_liked", String.valueOf(0));
                 result.put("user_key", user.getUid());
-                result.put("viewer", 0);
+                //result.put("viewer", String.valueOf(0));
                 //Log.i("sldfmksdkmfsdf",result+"");
                 mDatabase.child("post").child(key).setValue(result);
+                HashMap<String, Object> result1 = new HashMap<>();
+                result1.put("viewer", "0");
+                mDatabase.child("view").child(key).setValue(result1);
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
                 finish();

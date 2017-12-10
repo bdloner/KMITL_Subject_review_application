@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.valdesekamdem.library.mdtoast.MDToast;
 
 import org.w3c.dom.Comment;
 
@@ -132,6 +133,8 @@ public class CommentActivity extends Activity{
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mDatabase.child("comment").child(post_id).child(key_commment).removeValue();
+                        MDToast mdToast = MDToast.makeText(getApplicationContext(), "คอมเมนต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
+                        mdToast.show();
                     }
                 });
                 builder.setPositiveButton("ยกเลิก", new DialogInterface.OnClickListener() {
@@ -192,6 +195,7 @@ public class CommentActivity extends Activity{
         //result.put("post_id", post_id);
         result.put("timeStamp", timeStamp);
         result.put("uid", user.getDisplayName());
+        result.put("user_key", user.getUid());
         mDatabase.child("comment").child(post_id).push().setValue(result);
         value = "";
         addComment.setText("");
@@ -216,7 +220,7 @@ public class CommentActivity extends Activity{
                         String key = dataSnapshot.getKey();
                         CommentModel commentItem = new CommentModel(
                                 newComment.get("content").toString(),
-                                newComment.get("timeStamp").toString(), newComment.get("uid").toString(), key
+                                newComment.get("timeStamp").toString(), newComment.get("uid").toString(), key, newComment.get("user_key").toString()
                         );
                         listComments.add(commentItem);
                         adapter = new CommentAdapter(listComments, getApplication());

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +33,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     List<CommentModel> itemList;
     private Context context;
     private DatabaseReference mDatabase;
-
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
     public CommentAdapter(List<CommentModel> itemList, Context context) {
      this.itemList = itemList;
      this.context = context;
@@ -41,6 +44,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_item_comment, parent, false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
         return new ViewHolder(view);
     }
 
@@ -49,15 +54,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final CommentModel listComment = itemList.get(position);
         holder.comment_desc.setText(listComment.getContent());
         holder.comment_nickname.setText(listComment.getUid());
-        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-                menu.add(holder.getAdapterPosition(), 0, 0, "แก้ไข");
-                menu.add(holder.getAdapterPosition(), 1, 0, "ลบ");
-                menu.add(holder.getAdapterPosition(), 2, 0, "ยกเลิก");
+        if(user.getUid().equals(listComment.getUser_key())){
+            holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                @Override
+                public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                    menu.add(holder.getAdapterPosition(), 0, 0, "แก้ไข");
+                    menu.add(holder.getAdapterPosition(), 1, 0, "ลบ");
+                    menu.add(holder.getAdapterPosition(), 2, 0, "ยกเลิก");
 
-            }
-        });
+                }
+            });
+        }
 
         Query query = mDatabase.child("user");
         query.addChildEventListener(new ChildEventListener() {
