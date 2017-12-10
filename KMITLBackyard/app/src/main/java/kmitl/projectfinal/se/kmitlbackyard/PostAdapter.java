@@ -217,6 +217,7 @@ class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("post_id",  listPost.getPost_id());
                 intent.putExtra("user_key", listPost.getUser_key());
                 intent.putExtra("subjectSelect", listPost.getSubjectSelect());
+                intent.putExtra("type", listPost.getType());
                 context.startActivity(intent);
             }
         });

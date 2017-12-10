@@ -56,6 +56,7 @@ public class MeFragment extends Fragment {
     String uid;
     Uri uriProfileImage;
     DatabaseReference databaseReference;
+    FirebaseUser user;
     private FirebaseAuth firebaseAuth;
     private Button logout_btn;
     ImageView plus;
@@ -63,7 +64,7 @@ public class MeFragment extends Fragment {
     CircleImageView circleImageView2,history_img;
     private static final int CHOOSE_IMAGE = 101;
     String role;
-    FirebaseUser user;
+
     FirebaseDatabase firebaseDatabase;
     Button save_btn;
 

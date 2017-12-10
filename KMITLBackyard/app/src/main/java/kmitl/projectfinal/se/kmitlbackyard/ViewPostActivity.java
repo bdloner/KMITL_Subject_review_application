@@ -36,7 +36,7 @@ public class ViewPostActivity extends AppCompatActivity {
     private Button edit_post, delete_post;
     private String post_id, post_img, subject_id;
     private Context context;
-    private String num_star, mnickname, mtitle, msubject, mdesc, mdate;
+    private String num_star, mnickname, mtitle, msubject, mdesc, mdate, type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,7 @@ public class ViewPostActivity extends AppCompatActivity {
             msubject = bundle.getString("post_subject");
             mdesc = bundle.getString("post_desc");
             mdate = bundle.getString("post_date");
-
+            type = bundle.getString("type");
         }
         post_nickname.setText(mnickname);
         post_title.setText(mtitle);
@@ -98,6 +98,7 @@ public class ViewPostActivity extends AppCompatActivity {
                 intent.putExtra("post_subject", msubject);
                 intent.putExtra("post_desc", mdesc);
                 intent.putExtra("post_date", mdate);
+                intent.putExtra("type", type);
                 
                 startActivity(intent);
 //                finish();
@@ -117,7 +118,18 @@ public class ViewPostActivity extends AppCompatActivity {
                         mDatabase.child("Likes").child(post_id).removeValue();
                         mDatabase.child("comment").child(post_id).removeValue();
 
-                        Intent intent = new Intent(getApplicationContext(), SubjectPostActivity.class);
+                        Intent intent;
+                        if(type.equals("history")){
+                            intent = new Intent(getApplicationContext(), ShowHistoryActivity.class);
+                            intent.putExtra("uid", user.getDisplayName());
+                            intent.putExtra("user_key", user.getUid());
+
+                        }else if(type.equals("news")){
+                            intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("type", type);
+                        }else {
+                            intent = new Intent(getApplicationContext(), SubjectPostActivity.class);
+                        }
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.putExtra("subjectSelect", subject_id);
                         startActivity(intent);

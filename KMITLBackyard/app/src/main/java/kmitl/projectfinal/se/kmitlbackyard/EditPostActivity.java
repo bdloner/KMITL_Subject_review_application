@@ -18,7 +18,7 @@ public class EditPostActivity extends AppCompatActivity {
 
         private EditText comment;
         private RatingBar ratingBar;
-        private String post_id, num_star, mnickname, mtitle, msubject, mdesc, mdate;
+        private String post_id, num_star, mnickname, mtitle, msubject, mdesc, mdate, type;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -37,6 +37,7 @@ public class EditPostActivity extends AppCompatActivity {
                 msubject = bundle.getString("post_subject");
                 mdesc = bundle.getString("post_desc");
                 mdate = bundle.getString("post_date");
+                type = bundle.getString("type");
 
             }
             comment = findViewById(R.id.comment);
@@ -68,6 +69,7 @@ public class EditPostActivity extends AppCompatActivity {
                     intent.putExtra("subjectSelect", getIntent().getStringExtra("subjectSelect"));
                     intent.putExtra("post_title", mtitle);
                     intent.putExtra("post_id", post_id);
+                    intent.putExtra("type", type);
                     startActivity(intent);
                     finish();
                     break;

@@ -38,16 +38,16 @@ public class EditTitleReviewActivity extends AppCompatActivity {
     private static final int CHOOSE_IMAGE = 101;
     private DatabaseReference mDatabase;
     private String post_id;
+
     HashMap<String, Object> result = new HashMap<>();
     String subject_id;
     Uri uriUploadImage;
     String postImgLink;
-    String mtitle;
+    String mtitle, type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_title_review);
-
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         showMore = findViewById(R.id.show_more);
@@ -60,6 +60,7 @@ public class EditTitleReviewActivity extends AppCompatActivity {
         if(bundle != null){
             mtitle = bundle.getString("post_title");
             post_id = bundle.getString("post_id");
+            type = bundle.getString("type");
         }
         post_title.setText(mtitle);
         post_title.setSelection(post_title.length());
@@ -91,7 +92,19 @@ public class EditTitleReviewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_menu_post:
-                Intent intent = new Intent(this, SubjectPostActivity.class);
+                Intent intent;
+                if(type.equals("history")){
+                    intent = new Intent(this, ShowHistoryActivity.class);
+                    intent.putExtra("uid", user.getDisplayName());
+                    intent.putExtra("user_key", user.getUid());
+
+                }else if(type.equals("news")){
+                    intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("type", type);
+                }else {
+                    intent = new Intent(this, SubjectPostActivity.class);
+                }
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 //add post database
@@ -113,6 +126,7 @@ public class EditTitleReviewActivity extends AppCompatActivity {
                 mDatabase.child("post").child(post_id).updateChildren(result);
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
+
                 finish();
                 break;
             case android.R.id.home:

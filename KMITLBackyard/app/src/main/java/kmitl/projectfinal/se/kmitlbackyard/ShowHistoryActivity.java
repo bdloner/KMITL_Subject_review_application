@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -103,36 +104,50 @@ public class ShowHistoryActivity extends Activity {
 
     private void queryPost(final String uid) {
         Query query = mDatabase.child("post");
-        query.addChildEventListener(new ChildEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
-                String post_id = dataSnapshot.getKey();
-                PostModel postItem = new PostModel(
-                        newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
-                        newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
-                        newPost.get("uid").toString(), post_id , newPost.get("post_liked").toString(), newPost.get("viewer").toString(),
-                        newPost.get("user_key").toString(), "");
-                if(newPost.get("uid").toString().equals(uid)){ 
-                    listPosts.add(0, postItem);
-                    adapter = new PostAdapter(listPosts, getApplication());
-                    recycler_history.setAdapter(adapter);
-                }
-            }
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listPosts.clear();
+                Query query1 = mDatabase.child("post");
+                query1.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
+                        String post_id = dataSnapshot.getKey();
+                        PostModel postItem = new PostModel(
+                                newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
+                                newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
+                                newPost.get("uid").toString(), post_id , newPost.get("post_liked").toString(), newPost.get("viewer").toString(),
+                                newPost.get("user_key").toString(), "","history");
+                        if(newPost.get("uid").toString().equals(uid)){
+                            listPosts.add(0, postItem);
+                            adapter = new PostAdapter(listPosts, getApplication());
+                            recycler_history.setAdapter(adapter);
+                        }
+                    }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            }
+                    }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+                    }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                adapter = new PostAdapter(listPosts, getApplication());
+                recycler_history.setAdapter(adapter);
             }
 
             @Override
@@ -140,5 +155,6 @@ public class ShowHistoryActivity extends Activity {
 
             }
         });
+
     }
 }

@@ -18,7 +18,7 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseUser firebaseAuth;
-
+    private String type;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -56,7 +56,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content, new HomeFragment()).commit();
+        try {
+            Bundle bundle =getIntent().getExtras();
+            if(bundle != null){
+                 type = bundle.getString("type");
+                NewsFragment fragmentNews = new NewsFragment();
+                transaction.replace(R.id.content, fragmentNews, "NewsFragment").commit();
 
+            }
+        }catch (Exception e){
+
+        }
         firebaseAuth = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseAuth == null){
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
