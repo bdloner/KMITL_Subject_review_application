@@ -45,11 +45,12 @@ public class WriteReviewActivity extends AppCompatActivity {
                     break;
                 }
                 Intent intent = new Intent(this, AddTitleReviewActivity.class);
+
                 intent.putExtra("comment", comment.getText().toString());
                 intent.putExtra("rating", String.valueOf(ratingBar.getRating()));
                 intent.putExtra("subjectSelect", getIntent().getStringExtra("subjectSelect"));
                 startActivity(intent);
-//                finish();
+                finish();
                 break;
             case android.R.id.home:
                 finish();

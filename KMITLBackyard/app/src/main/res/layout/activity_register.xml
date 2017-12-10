@@ -126,6 +126,7 @@
                 android:drawableLeft="@drawable/ic_reg_nickname"
                 android:hint="ชื่อเล่น"
                 android:maxLength="15"
+                android:maxLines="1"
                 android:textColor="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
