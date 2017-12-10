@@ -50,7 +50,7 @@ public class CommentActivity extends Activity{
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private FrameLayout frameLayout5;
-    private String key_commment;
+    private String key_commment, title_comment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +116,12 @@ public class CommentActivity extends Activity{
         switch (item.getItemId()){
             case 0:
                 key_commment = listComments.get(item.getGroupId()).getKey();
+                title_comment = listComments.get(item.getGroupId()).getContent();
+                Intent intent = new Intent(getApplicationContext(), EditCommentActivity.class);
+                intent.putExtra("key_commment", key_commment);
+                intent.putExtra("title_comment", title_comment);
+                intent.putExtra("post_id", post_id);
+                startActivity(intent);
                 break;
             case 1:
                 key_commment = listComments.get(item.getGroupId()).getKey();
