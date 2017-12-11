@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kmitl.projectfinal.se.kmitlbackyard.model.CommentModel;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
 

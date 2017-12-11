@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.HashMap;
+
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class EditCommentActivity extends Activity {
 

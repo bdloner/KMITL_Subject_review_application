@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView;
+import kmitl.projectfinal.se.kmitlbackyard.view.PostAdapter;
+import kmitl.projectfinal.se.kmitlbackyard.model.PostModel;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class ShowHistoryActivity extends Activity {
     private RecyclerView recycler_history;

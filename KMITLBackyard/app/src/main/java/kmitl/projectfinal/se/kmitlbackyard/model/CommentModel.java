@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.model;
 
 public class CommentModel {
 

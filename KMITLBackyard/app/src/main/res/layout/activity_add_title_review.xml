@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.AddTitleReviewActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.AddTitleReviewActivity">
 
-    <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+    <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
         android:id="@+id/txt_title_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                     android:id="@+id/txt_rating_post"
                     android:layout_width="368dp"
                     android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="279dp" />
 
-                <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                     android:id="@+id/rating_post"
                     android:layout_width="368dp"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="279dp" />
 
-                <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                     android:id="@+id/txt_desc_post"
                     android:layout_width="368dp"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="295dp" />
 
-                <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                     android:id="@+id/desc_post"
                     android:layout_width="368dp"
                     android:layout_height="wrap_content"

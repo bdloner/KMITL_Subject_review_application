@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +20,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+
+import kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class AddTitleReviewActivity extends AppCompatActivity {
 

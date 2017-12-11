@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.HomeFragment">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.view.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                         tools:layout_editor_absoluteX="8dp"
                         tools:layout_editor_absoluteY="8dp">
 
-                        <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                        <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                             android:id="@+id/customTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

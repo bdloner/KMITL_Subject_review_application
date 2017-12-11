@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_kmitl"
     android:padding="15dp"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.LoginActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.LoginActivity">
 
     <com.santalu.emptyview.EmptyView
         android:id="@+id/layout_content_container"
@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+        <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+        <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
             android:id="@+id/forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

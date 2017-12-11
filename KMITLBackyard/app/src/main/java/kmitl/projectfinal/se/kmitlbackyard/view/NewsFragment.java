@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import kmitl.projectfinal.se.kmitlbackyard.model.PostModel;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class NewsFragment extends Fragment {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.SubjectPostActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.SubjectPostActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:id="@+id/post_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

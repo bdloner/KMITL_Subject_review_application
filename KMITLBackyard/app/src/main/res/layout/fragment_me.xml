@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.MeFragment">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.view.MeFragment">
 
     <com.santalu.emptyview.EmptyView
         android:id="@+id/layout_content_container"
@@ -72,7 +72,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView2" />
 
-        <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+        <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
             android:id="@+id/profile_email"
             android:layout_width="247dp"
             android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -33,6 +33,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import kmitl.projectfinal.se.kmitlbackyard.view.CommentAdapter;
+import kmitl.projectfinal.se.kmitlbackyard.model.CommentModel;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class CommentActivity extends Activity{
 

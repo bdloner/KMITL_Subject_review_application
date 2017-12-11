@@ -24,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+        <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
             android:id="@+id/comment_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:layout_constraintStart_toEndOf="@+id/image_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:id="@+id/comment_desc"
                 android:layout_width="288dp"
                 android:layout_height="wrap_content"

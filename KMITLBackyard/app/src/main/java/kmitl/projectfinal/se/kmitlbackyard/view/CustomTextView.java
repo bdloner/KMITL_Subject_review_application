@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.content.Context;
 import android.graphics.Typeface;

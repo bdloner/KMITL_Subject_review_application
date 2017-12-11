@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name=".view.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,46 +21,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ListSubjectActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.ListSubjectActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SubjectPostActivity"
-            android:parentActivityName=".ListSubjectActivity"
+            android:name=".activity.SubjectPostActivity"
+            android:parentActivityName=".activity.ListSubjectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WriteReviewActivity"
-            android:parentActivityName=".SubjectPostActivity"
+            android:name=".activity.WriteReviewActivity"
+            android:parentActivityName=".activity.SubjectPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddTitleReviewActivity"
-            android:parentActivityName=".WriteReviewActivity"
+            android:name=".activity.AddTitleReviewActivity"
+            android:parentActivityName=".activity.WriteReviewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CommentActivity"
+            android:name=".activity.CommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ViewPostActivity"
+            android:name=".activity.ViewPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ShowHistoryActivity"
+            android:name=".activity.ShowHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditPostActivity"
+            android:name=".activity.EditPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EditTitleReviewActivity"
+            android:name=".activity.EditTitleReviewActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".EditCommentActivity"></activity>
+        <activity android:name=".activity.EditCommentActivity"></activity>
     </application>
 
 </manifest>

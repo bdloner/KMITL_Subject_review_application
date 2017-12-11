@@ -1,17 +1,22 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.valdesekamdem.library.mdtoast.MDToast;
+
+import kmitl.projectfinal.se.kmitlbackyard.view.HomeFragment;
+import kmitl.projectfinal.se.kmitlbackyard.view.MeFragment;
+import kmitl.projectfinal.se.kmitlbackyard.view.NewsFragment;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseUser firebaseAuth;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.ShowHistoryActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.ShowHistoryActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:background="@drawable/user"
                 android:layout_marginTop="20dp"/>
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:id="@+id/history_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="12dp"/>
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ประวัติการโพสต์ล่าสุด"

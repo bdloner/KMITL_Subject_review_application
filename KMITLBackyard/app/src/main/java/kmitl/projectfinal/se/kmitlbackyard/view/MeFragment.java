@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,6 +40,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kmitl.projectfinal.se.kmitlbackyard.R;
+import kmitl.projectfinal.se.kmitlbackyard.activity.LoginActivity;
+import kmitl.projectfinal.se.kmitlbackyard.activity.ShowHistoryActivity;
+import kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView;
 
 import static android.app.Activity.RESULT_OK;
 

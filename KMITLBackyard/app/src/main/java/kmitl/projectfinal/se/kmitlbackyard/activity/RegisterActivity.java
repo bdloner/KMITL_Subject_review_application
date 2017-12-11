@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +25,8 @@ import com.valdesekamdem.library.mdtoast.MDToast;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class RegisterActivity extends Activity {
     private EditText regEmail, regPassword, regConfirmPassword, regNickname;

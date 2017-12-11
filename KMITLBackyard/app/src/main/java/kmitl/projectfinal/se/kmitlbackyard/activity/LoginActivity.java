@@ -1,21 +1,21 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.santalu.emptyview.EmptyView;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -23,16 +23,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.zhaiyifan.rememberedittext.RememberEditText;
+import kmitl.projectfinal.se.kmitlbackyard.R;
+import kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView;
 
 public class LoginActivity extends Activity {
 
     private EditText loginPassword;
     private RememberEditText loginEmail;
     private Button btnLogin, btnRegister;
-    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
-    private String inpemail;
-    private String inppassword;
+    private String inpEmail;
+    private String inpPassword;
     private EmptyView emptyView;
     private CustomTextView forgotPass;
     private Dialog dialog;
@@ -59,10 +60,6 @@ public class LoginActivity extends Activity {
         loginPassword = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.btn_login);
         btnRegister = findViewById(R.id.btn_register);
-
-        //get firebase db reference
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,10 +125,10 @@ public class LoginActivity extends Activity {
     }
 
     private void login() {
-        inpemail = loginEmail.getText().toString();
-        inppassword = loginPassword.getText().toString();
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(inpemail);
-        if (inppassword.equals("") || inpemail.equals("")){
+        inpEmail = loginEmail.getText().toString();
+        inpPassword = loginPassword.getText().toString();
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(inpEmail);
+        if (inpPassword.equals("") || inpEmail.equals("")){
             MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณากรอกข้อมูลให้ครบ", MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
             mdToast.show();
             return;
@@ -143,10 +140,33 @@ public class LoginActivity extends Activity {
             return;
         }
         emptyView.showLoading();
-        firebaseAuth.signInWithEmailAndPassword(inpemail, inppassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(inpEmail, inpPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    if (!firebaseAuth.getCurrentUser().isEmailVerified()){
+//                        resend in login
+                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ก่อนเข้าสู่ระบบ", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
+                                mdToast.show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลผิดผลาด\nกรุณาล็อกอินใหม่" + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
+                                mdToast.show();
+                            }
+                        });
+
+                        Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent2);
+
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
+                        return;
+                    }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
@@ -161,5 +181,4 @@ public class LoginActivity extends Activity {
             }
         });
     }
-
 }

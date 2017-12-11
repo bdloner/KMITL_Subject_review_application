@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class ListSubjectActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
     ArrayList<String> listItems;

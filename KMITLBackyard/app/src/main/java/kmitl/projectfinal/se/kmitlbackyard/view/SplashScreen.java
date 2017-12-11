@@ -1,9 +1,12 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
+
+import kmitl.projectfinal.se.kmitlbackyard.R;
+import kmitl.projectfinal.se.kmitlbackyard.activity.LoginActivity;
 
 public class SplashScreen extends Activity {
 

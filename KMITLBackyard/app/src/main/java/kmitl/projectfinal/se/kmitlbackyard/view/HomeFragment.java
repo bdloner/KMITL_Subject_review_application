@@ -1,7 +1,6 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -21,6 +20,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
+
+import kmitl.projectfinal.se.kmitlbackyard.R;
+import kmitl.projectfinal.se.kmitlbackyard.activity.ListSubjectActivity;
+import kmitl.projectfinal.se.kmitlbackyard.activity.SubjectPostActivity;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 

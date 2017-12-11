@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kmitl.projectfinal.se.kmitlbackyard.view.PostAdapter;
+import kmitl.projectfinal.se.kmitlbackyard.model.PostModel;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class SubjectPostActivity extends AppCompatActivity {
 

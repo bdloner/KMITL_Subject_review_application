@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.CommentActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.CommentActivity">
 
     <FrameLayout
         android:id="@+id/frameLayout3"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"

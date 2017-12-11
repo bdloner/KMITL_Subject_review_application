@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.ListSubjectActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.ListSubjectActivity">
 
     <EditText
         android:id="@+id/txt_search"

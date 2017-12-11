@@ -1,4 +1,4 @@
-package kmitl.projectfinal.se.kmitlbackyard;
+package kmitl.projectfinal.se.kmitlbackyard.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView;
+import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class ViewPostActivity extends AppCompatActivity {
 

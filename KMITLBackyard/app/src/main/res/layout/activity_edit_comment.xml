@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kmitl.projectfinal.se.kmitlbackyard.EditCommentActivity">
+    tools:context="kmitl.projectfinal.se.kmitlbackyard.activity.EditCommentActivity">
 
     <FrameLayout
         android:id="@+id/frameLayout3"
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+            <kmitl.projectfinal.se.kmitlbackyard.view.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
