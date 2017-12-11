@@ -44,6 +44,7 @@ public class EditCommentActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(EditCommentActivity.this, CommentActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("content", oldComment.getText().toString());
                 mDatabase.child("comment").child(post_id).child(key_commment).updateChildren(result);

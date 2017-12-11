@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_kmitl"
-    android:padding="30dp"
+    android:padding="15dp"
     tools:context="kmitl.projectfinal.se.kmitlbackyard.LoginActivity">
 
     <com.santalu.emptyview.EmptyView
@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#66000000"
-        android:padding="30dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
