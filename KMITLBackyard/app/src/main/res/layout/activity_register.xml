@@ -60,6 +60,8 @@
                 android:drawableLeft="@drawable/ic_login_email"
                 android:hint="อีเมล @kmitl.ac.th"
                 android:maxLength="20"
+                android:maxLines="1"
+                android:inputType="text"
                 android:textColor="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>
@@ -127,6 +129,7 @@
                 android:hint="ชื่อเล่น"
                 android:maxLength="15"
                 android:maxLines="1"
+                android:inputType="text"
                 android:textColor="#ffffff" />
 
         </android.support.design.widget.TextInputLayout>

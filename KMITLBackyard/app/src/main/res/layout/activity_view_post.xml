@@ -73,6 +73,35 @@
                 app:layout_constraintTop_toBottomOf="@+id/post_nickname"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <TextView
+                android:id="@+id/slide_bar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#d1d1d1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_icon" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="หัวข้อการรีวิว :"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/slide_bar" />
+
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/post_title"
                 android:layout_width="wrap_content"
@@ -81,12 +110,27 @@
                 android:layout_alignStart="@+id/post_rating"
                 android:layout_below="@+id/post_rating"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="หัวข้อการรีวิว"
+                android:text="คำอธิบายหัวข้อ"
                 android:textSize="20dp"
+                app:layout_constraintStart_toEndOf="@+id/txt_title"
+                app:layout_constraintTop_toBottomOf="@+id/slide_bar" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+                android:id="@+id/txt_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="ชื่อวิชา :"
                 android:textColor="#000000"
+                android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/post_title" />
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
                 android:id="@+id/post_subject"
@@ -96,12 +140,29 @@
                 android:layout_alignStart="@+id/post_rating"
                 android:layout_below="@+id/post_rating"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="ชื่อวิชา"
+                android:text="ชื่อวิชาที่รีวิว"
+                android:textSize="20dp"
+                app:layout_constraintStart_toEndOf="@+id/txt_subject"
+                app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+            <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
+
+                android:id="@+id/txt_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/post_rating"
+                android:layout_alignStart="@+id/post_rating"
+                android:layout_below="@+id/post_rating"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="รายละเอียดการรีวิว :"
                 android:textColor="#000000"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_title" />
+                app:layout_constraintTop_toBottomOf="@+id/post_subject" />
 
             <kmitl.projectfinal.se.kmitlbackyard.CustomTextView
 
@@ -115,12 +176,12 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="รายละเอียดการรีวิว"
+                android:text="คำอธิบาย"
                 android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/post_subject" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_desc" />
 
 
         </android.support.constraint.ConstraintLayout>
