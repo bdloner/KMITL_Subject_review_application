@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 
 public class CustomTextView extends android.support.v7.widget.AppCompatTextView {
+
     public CustomTextView(Context context) {
         super(context);
         initTypFace();

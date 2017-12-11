@@ -1,6 +1,7 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 public class CommentModel {
+
     private String content;
     private String timeStamp;
     private String uid;

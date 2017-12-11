@@ -24,16 +24,17 @@ import java.util.HashMap;
 public class AddTitleReviewActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    FirebaseUser user;
+    private FirebaseUser user;
     private Button showMore;
     private FrameLayout frameLayout;
     private CustomTextView rating_post;
     private CustomTextView desc_post;
     private EditText post_title;
     private DatabaseReference mDatabase;
-    String key;
-    HashMap<String, Object> result = new HashMap<>();
-    String subject_id;
+    private String key;
+    private HashMap<String, Object> result = new HashMap<>();
+    private String subject_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
