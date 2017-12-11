@@ -1,30 +1,21 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.santalu.emptyview.EmptyView;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
@@ -38,7 +29,7 @@ public class LoginActivity extends Activity {
     private EditText loginPassword;
     private RememberEditText loginEmail;
     private Button btnLogin, btnRegister;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private String inpemail;
     private String inppassword;
@@ -156,29 +147,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-//                    if (!firebaseAuth.getCurrentUser().isEmailVerified()){
-////                        resend in login
-//                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "กรุณายืนยันอีเมลล์ก่อนเข้าสู่ระบบ", MDToast.LENGTH_SHORT, MDToast.TYPE_WARNING);
-//                                mdToast.show();
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                MDToast mdToast = MDToast.makeText(getApplicationContext(), "การส่งอีเมลผิดผลาด\nกรุณาล็อกอินใหม่" + firebaseAuth.getCurrentUser().getEmail(), MDToast.LENGTH_SHORT, MDToast.TYPE_ERROR);
-//                                mdToast.show();
-//                            }
-//                        });
-//
-//                        Intent intent2 = new Intent(getApplicationContext(), LoginActivity.class);
-//                        startActivity(intent2);
-//
-//                        FirebaseAuth.getInstance().signOut();
-//                        finish();
-//                        return;
-//                    }
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();

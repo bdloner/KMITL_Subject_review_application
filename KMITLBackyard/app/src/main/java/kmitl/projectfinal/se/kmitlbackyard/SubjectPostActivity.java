@@ -5,12 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +33,6 @@ public class SubjectPostActivity extends AppCompatActivity {
     private Button writeReviewBtn;
 
     private String subjectSelect = "";
-    private String uid = "";
     DatabaseReference databaseReference;
     private TextView post_nickname;
     private FirebaseAuth firebaseAuth;
@@ -86,7 +83,6 @@ public class SubjectPostActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), WriteReviewActivity.class);
                 intent.putExtra("subjectSelect", subjectSelect);
                 startActivity(intent);
-//                finish();
             }
         });
 
@@ -165,7 +161,7 @@ public class SubjectPostActivity extends AppCompatActivity {
                                 newPost.get("description").toString(), newPost.get("score").toString(), newPost.get("score_num").toString(),
                                 newPost.get("subject_id").toString(), newPost.get("timeStamp").toString(), newPost.get("title").toString(),
                                 newPost.get("uid").toString(), post_id, newPost.get("user_key").toString(),subjectSelect, "subjectpost");
-                        if(newPost.get("subject_id").toString().equals(subjectSelect)){ // ดึงเลขวิชาจากหน้าที่กดมา แล้วดักว่าจะโชววิชาอะไร ตรงนี้นะ
+                        if(newPost.get("subject_id").toString().equals(subjectSelect)){
                             listPosts.add(0, postItem);
                             adapter = new PostAdapter(listPosts, getApplication());
                             recyclerView.setAdapter(adapter);

@@ -1,7 +1,6 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,38 +16,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-
-/**
- * Created by barjord on 12/10/2017 AD.
- */
 
 public class EditTitleReviewActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    private Button addImgBtn, showMore;
+    private FirebaseUser user;
+    private Button showMore;
     private FrameLayout frameLayout;
     private CustomTextView rating_post;
     private CustomTextView desc_post;
     private EditText post_title;
-    private static final int CHOOSE_IMAGE = 101;
     private DatabaseReference mDatabase;
     private String post_id;
 
-    HashMap<String, Object> result = new HashMap<>();
-    String subject_id;
-    Uri uriUploadImage;
-    String postImgLink;
-    String mtitle, type;
+    private HashMap<String, Object> result;
+    private String subject_id;
+    private String mtitle, type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_title_review);
         firebaseAuth = FirebaseAuth.getInstance();
+        result = new HashMap<>();
         user = firebaseAuth.getCurrentUser();
         showMore = findViewById(R.id.show_more);
         frameLayout = findViewById(R.id.frameLayout);
@@ -122,7 +113,6 @@ public class EditTitleReviewActivity extends AppCompatActivity {
                 result.put("score", score);
                 result.put("description", description);
                 result.put("title", title);
-                //Log.i("sldfmksdkmfsdf",result+"");
                 mDatabase.child("post").child(post_id).updateChildren(result);
                 MDToast mdToast = MDToast.makeText(getApplicationContext(), "โพสต์ถูกแก้ไขแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
                 mdToast.show();

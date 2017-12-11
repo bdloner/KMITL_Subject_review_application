@@ -1,16 +1,12 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +37,6 @@ public class ShowHistoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
-//        Toast.makeText(getApplicationContext(), getIntent().getStringExtra("uid"), Toast.LENGTH_SHORT).show();
         uid = getIntent().getStringExtra("uid");
         user_key = getIntent().getStringExtra("user_key");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -73,7 +68,6 @@ public class ShowHistoryActivity extends Activity {
                 if(dataSnapshot.getKey().equals(uid)){
                     String profileImgLink = userData.get("profileImgLink").toString();
                     String nick = userData.get("nickname").toString();
-                    String email = userData.get("email").toString();
                     if (profileImgLink!=null || !profileImgLink.equals("null") || !profileImgLink.equals("")){
                         Picasso.with(getApplicationContext()).load(profileImgLink).fit().centerCrop().into(history_img_profile);
                     }

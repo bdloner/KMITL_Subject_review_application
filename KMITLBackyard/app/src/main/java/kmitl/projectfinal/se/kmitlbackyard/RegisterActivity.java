@@ -1,22 +1,14 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,38 +17,26 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.santalu.emptyview.EmptyView;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends Activity {
-    boolean check = false;
     private EditText regEmail, regPassword, regConfirmPassword, regNickname;
     private Button btnRegister, btnBack;
     private String sRegEmail, sRegPassword, sRegConfirmPassword, sRegNickname;
     private Firebase mFirebase;
-    private List<String> mChats = new ArrayList<String>();
-    private ArrayAdapter<String> mAdapter;
     private EmptyView emptyView;
 
-    String checkEmail;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[kmitl.-]{5}+\\.[ac]{2}+\\.[th]{2}$", Pattern.CASE_INSENSITIVE);
-    int cnt_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,6 +165,5 @@ public class RegisterActivity extends Activity {
                         }
                     }
                 });
-
     }
 }

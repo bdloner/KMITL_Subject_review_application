@@ -1,6 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,10 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class ListSubjectActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
     ArrayList<String> listItems;
@@ -47,7 +41,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         fac = getIntent().getStringExtra("fac");
         initList();
         getSupportActionBar().setTitle(fac);
-        //get firebase db reference
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -83,7 +76,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
 
             }
         });
-
     }
 
 
@@ -97,7 +89,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, SubjectPostActivity.class);
-//        Toast.makeText(getApplicationContext(), listItems.get(position), Toast.LENGTH_SHORT).show();
         intent.putExtra("subjectSelect", listItems.get(position));
         intent.putExtra("type", "home");
         startActivities(new Intent[]{intent});

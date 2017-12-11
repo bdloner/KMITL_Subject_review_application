@@ -1,7 +1,6 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,18 +25,15 @@ public class AddTitleReviewActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    private Button addImgBtn, showMore;
+    private Button showMore;
     private FrameLayout frameLayout;
     private CustomTextView rating_post;
     private CustomTextView desc_post;
     private EditText post_title;
-    private static final int CHOOSE_IMAGE = 101;
     private DatabaseReference mDatabase;
     String key;
     HashMap<String, Object> result = new HashMap<>();
     String subject_id;
-    Uri uriUploadImage;
-    String postImgLink;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,31 +92,8 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                     break;
                 }
 
-                //add post database
-                key = mDatabase.push().getKey();
+                addPostDatabase();
 
-                String score = getIntent().getStringExtra("rating");
-                String description = getIntent().getStringExtra("comment");
-                String title = this.post_title.getText().toString();
-                String uid = user.getDisplayName();
-                String timeStamp = getCurrentTime();
-                String score_num = "0";
-
-                result.put("score", score);
-                result.put("description", description);
-                result.put("title", title);
-                result.put("uid", uid);
-                result.put("subject_id", subject_id);
-                result.put("timeStamp", timeStamp);
-                result.put("score_num", score_num);
-                //result.put("post_liked", String.valueOf(0));
-                result.put("user_key", user.getUid());
-                //result.put("viewer", String.valueOf(0));
-                //Log.i("sldfmksdkmfsdf",result+"");
-                mDatabase.child("post").child(key).setValue(result);
-                HashMap<String, Object> result1 = new HashMap<>();
-                result1.put("viewer", "0");
-                mDatabase.child("view").child(key).setValue(result1);
                 intent.putExtra("subjectSelect", subject_id);
                 startActivity(intent);
                 finish();
@@ -130,6 +103,30 @@ public class AddTitleReviewActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    public void addPostDatabase() {
+        key = mDatabase.push().getKey();
+
+        String score = getIntent().getStringExtra("rating");
+        String description = getIntent().getStringExtra("comment");
+        String title = this.post_title.getText().toString();
+        String uid = user.getDisplayName();
+        String timeStamp = getCurrentTime();
+        String score_num = "0";
+
+        result.put("score", score);
+        result.put("description", description);
+        result.put("title", title);
+        result.put("uid", uid);
+        result.put("subject_id", subject_id);
+        result.put("timeStamp", timeStamp);
+        result.put("score_num", score_num);
+        result.put("user_key", user.getUid());
+        mDatabase.child("post").child(key).setValue(result);
+        HashMap<String, Object> result1 = new HashMap<>();
+        result1.put("viewer", "0");
+        mDatabase.child("view").child(key).setValue(result1);
     }
 
 }

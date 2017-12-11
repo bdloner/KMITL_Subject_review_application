@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,26 +21,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
-
-    private OnFragmentInteractionListener mListener;
 
     private Button engineeringBtn, architectureBtn, educationBtn, agriculturalTechnoBtn,
             scienceBtn, agricultureBtn, itBtn, internationalBtn, nanoTechnoBtn, productionInnoBtn,
             managementBtn, interFlightBtn, liberalArtsBtn, search_btn, clearBtn;
 
     private AutoCompleteTextView seach_subject;
-    ArrayAdapter<String> adapter;
-    private Spinner catSubject, semester;
-    DatabaseReference databaseReference;
+    private ArrayAdapter<String> adapter;
+    private DatabaseReference databaseReference;
     private String value;
     private ArrayList<String> listItems = new ArrayList<String>();
     private String[] listAllFacs = new String[]{"Engineering", "Architecture", "Education", "Agricultural_techno",
                                                 "Science", "Agriculture", "It", "International", "Nano_techno", "Production_inno",
                                                 "Management", "Inter_flight", "Liberal_arts"};
-    private ArrayList<String> listAllSubject;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +59,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         search_btn = v.findViewById(R.id.search_btn);
         clearBtn = v.findViewById(R.id.clear_btn);
 
-        adapter = new ArrayAdapter<String>(getContext(), R.layout.list_item, R.id.txtItem, listItems);
+        adapter = new ArrayAdapter(getContext(), R.layout.list_item, R.id.txtItem, listItems);
         seach_subject.setAdapter(adapter);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -223,10 +216,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
         }
 
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

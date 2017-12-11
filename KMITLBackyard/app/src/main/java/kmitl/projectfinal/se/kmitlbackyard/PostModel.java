@@ -1,9 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-/**
- * Created by CPCust on 5/12/2560.
- */
-
 public class PostModel {
     private String description;
     private String score;

@@ -1,11 +1,9 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -28,8 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.valdesekamdem.library.mdtoast.MDToast;
-
-import org.w3c.dom.Comment;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -51,7 +46,8 @@ public class CommentActivity extends Activity{
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private FrameLayout frameLayout5;
-    private String key_commment, title_comment;
+    private String key_comment, title_comment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +98,6 @@ public class CommentActivity extends Activity{
 
         });
 
-
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,23 +111,23 @@ public class CommentActivity extends Activity{
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case 0:
-                key_commment = listComments.get(item.getGroupId()).getKey();
+                key_comment = listComments.get(item.getGroupId()).getKey();
                 title_comment = listComments.get(item.getGroupId()).getContent();
                 Intent intent = new Intent(getApplicationContext(), EditCommentActivity.class);
-                intent.putExtra("key_commment", key_commment);
+                intent.putExtra("key_comment", key_comment);
                 intent.putExtra("title_comment", title_comment);
                 intent.putExtra("post_id", post_id);
                 startActivity(intent);
                 break;
             case 1:
-                key_commment = listComments.get(item.getGroupId()).getKey();
+                key_comment = listComments.get(item.getGroupId()).getKey();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
                 builder.setMessage("คุณยืนยันจะลบคอมเมนต์นี้หรือไม่?");
                 builder.setCancelable(true);
                 builder.setNegativeButton("ยืนยัน", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        mDatabase.child("comment").child(post_id).child(key_commment).removeValue();
+                        mDatabase.child("comment").child(post_id).child(key_comment).removeValue();
                         MDToast mdToast = MDToast.makeText(getApplicationContext(), "คอมเมนต์ถูกลบแล้ว", MDToast.LENGTH_SHORT, MDToast.TYPE_SUCCESS);
                         mdToast.show();
                     }
@@ -192,7 +187,6 @@ public class CommentActivity extends Activity{
     public void sendComment(View view) {
         HashMap<String, Object> result = new HashMap<>();
         result.put("content", value);
-        //result.put("post_id", post_id);
         result.put("timeStamp", timeStamp);
         result.put("uid", user.getDisplayName());
         result.put("user_key", user.getUid());
@@ -223,7 +217,7 @@ public class CommentActivity extends Activity{
                                 newComment.get("timeStamp").toString(), newComment.get("uid").toString(), key, newComment.get("user_key").toString()
                         );
                         listComments.add(commentItem);
-                        adapter = new CommentAdapter(listComments, getApplication());
+                        adapter = new CommentAdapter(listComments);
                         recyclerView.setAdapter(adapter);
 
 
@@ -249,7 +243,7 @@ public class CommentActivity extends Activity{
 
                     }
                 });
-                adapter = new CommentAdapter(listComments, getApplication());
+                adapter = new CommentAdapter(listComments);
                 recyclerView.setAdapter(adapter);
             }
 

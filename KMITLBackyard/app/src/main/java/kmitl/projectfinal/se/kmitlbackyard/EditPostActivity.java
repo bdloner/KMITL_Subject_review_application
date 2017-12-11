@@ -10,10 +10,6 @@ import android.widget.RatingBar;
 
 import com.valdesekamdem.library.mdtoast.MDToast;
 
-/**
- * Created by barjord on 12/9/2017 AD.
- */
-
 public class EditPostActivity extends AppCompatActivity {
 
         private EditText comment;
@@ -27,9 +23,8 @@ public class EditPostActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("แก้ไขโพส");
 
-
             Bundle bundle =getIntent().getExtras();
-            if(bundle != null){
+            if (bundle != null){
                 post_id = bundle.getString("post_id");
                 num_star = bundle.getString("post_rating");
                 mnickname = bundle.getString("post_nickname");
@@ -38,8 +33,8 @@ public class EditPostActivity extends AppCompatActivity {
                 mdesc = bundle.getString("post_desc");
                 mdate = bundle.getString("post_date");
                 type = bundle.getString("type");
-
             }
+
             comment = findViewById(R.id.comment);
             ratingBar = findViewById(R.id.ratingBar);
             ratingBar.setRating(Float.parseFloat(num_star));
@@ -50,7 +45,6 @@ public class EditPostActivity extends AppCompatActivity {
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
             getMenuInflater().inflate(R.menu.menu_action_next, menu);
-
             return super.onCreateOptionsMenu(menu);
         }
 

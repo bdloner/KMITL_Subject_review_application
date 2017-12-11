@@ -1,9 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-/**
- * Created by BDLoneR on 31/10/2560.
- */
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;

@@ -1,6 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,9 +36,7 @@ import com.squareup.picasso.Picasso;
 import com.valdesekamdem.library.mdtoast.MDToast;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -50,30 +45,27 @@ import static android.app.Activity.RESULT_OK;
 
 public class MeFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
-    CustomTextView profile_email;
-    EditText profile_nickname;
-    String uid;
-    Uri uriProfileImage;
-    DatabaseReference databaseReference;
-    FirebaseUser user;
+    private CustomTextView profile_email;
+    private EditText profile_nickname;
+    private Uri uriProfileImage;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
     private Button logout_btn;
-    ImageView plus;
-    String profileImageUrl;
-    CircleImageView circleImageView2,history_img;
+    private ImageView plus;
+    private String profileImageUrl;
+    private CircleImageView circleImageView2,history_img;
     private static final int CHOOSE_IMAGE = 101;
-    String role;
+    private String role;
 
-    FirebaseDatabase firebaseDatabase;
-    Button save_btn;
+    private FirebaseDatabase firebaseDatabase;
+    private Button save_btn;
 
     private EmptyView emptyView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_me, container, false);
         logout_btn = v.findViewById(R.id.logout_btn);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -237,7 +229,6 @@ public class MeFragment extends Fragment {
                     changeImageUrlInAuth(taskSnapshot.getDownloadUrl());
                     Picasso.with(getContext()).load(profileImageUrl).fit().centerCrop().into(circleImageView2);
                     databaseReference.child("user").child(user.getUid()).child("profileImgLink").setValue(profileImageUrl);
-//                    Toast.makeText(getContext(), "Success to upload profile image", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -270,10 +261,5 @@ public class MeFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "select picture profile"), CHOOSE_IMAGE);
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

@@ -1,9 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-/**
- * Created by CPCust on 7/12/2560.
- */
-
 public class CommentModel {
     private String content;
     private String timeStamp;

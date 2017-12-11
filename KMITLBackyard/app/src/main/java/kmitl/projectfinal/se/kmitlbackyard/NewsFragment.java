@@ -1,7 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +19,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewsFragment extends Fragment {
 
@@ -54,8 +46,8 @@ public class NewsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listPosts.clear();
-                Query querynews = mDatabase.child("post");
-                querynews.addChildEventListener(new ChildEventListener() {
+                Query queryNews = mDatabase.child("post");
+                queryNews.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Map<String, Object> newPost = (Map<String, Object>) dataSnapshot.getValue();
@@ -99,9 +91,5 @@ public class NewsFragment extends Fragment {
             }
         });
 
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

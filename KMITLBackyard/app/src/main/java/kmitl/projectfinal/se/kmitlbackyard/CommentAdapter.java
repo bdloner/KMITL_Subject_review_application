@@ -1,14 +1,11 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,19 +22,15 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by CPCust on 7/12/2560.
- */
-
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder>{
+
     List<CommentModel> itemList;
-    private Context context;
     private DatabaseReference mDatabase;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
-    public CommentAdapter(List<CommentModel> itemList, Context context) {
-     this.itemList = itemList;
-     this.context = context;
+
+    public CommentAdapter(List<CommentModel> itemList) {
+        this.itemList = itemList;
     }
 
     @Override
@@ -73,7 +66,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Map<String, Object> imgUser = (Map<String, Object>) dataSnapshot.getValue();
                 if (imgUser.get("nickname").toString().equals(listComment.getUid()) && !imgUser.get("profileImgLink").equals("null")) {
                     if (imgUser.get("profileImgLink").toString() != null || !imgUser.get("profileImgLink").toString().equals("")){
-                        //holder.post_profile_link = imgUser.get("profileImgLink").toString();
                         Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
                     }
                 }
@@ -107,9 +99,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-    private CustomTextView comment_nickname, comment_desc;
-    private CircleImageView image_icon;
-    private Context context;
+        private CustomTextView comment_nickname, comment_desc;
+        private CircleImageView image_icon;
+        private Context context;
+
         public ViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();

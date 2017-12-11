@@ -1,6 +1,5 @@
 package kmitl.projectfinal.se.kmitlbackyard;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -37,8 +36,9 @@ public class ViewPostActivity extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference mDatabase;
     private Button edit_post, delete_post;
-    private String post_id, post_img, subject_id;
-    private String num_star, mnickname, mtitle, msubject, mdesc, mdate, type, viewer;
+    private String post_id, subject_id;
+    private String num_star, mNickName, mTitle, mSubject, mDesc, mDate, type, viewer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +68,11 @@ public class ViewPostActivity extends AppCompatActivity {
         if(bundle != null){
             post_id = bundle.getString("post_id");
             num_star = bundle.getString("post_rating");
-            mnickname = bundle.getString("post_nickname");
-            mtitle = bundle.getString("post_title");
-            msubject = bundle.getString("post_subject");
-            mdesc = bundle.getString("post_desc");
-            mdate = bundle.getString("post_date");
+            mNickName = bundle.getString("post_nickname");
+            mTitle = bundle.getString("post_title");
+            mSubject = bundle.getString("post_subject");
+            mDesc = bundle.getString("post_desc");
+            mDate = bundle.getString("post_date");
             type = bundle.getString("type");
             viewer = bundle.getString("viewer");
         }
@@ -80,12 +80,12 @@ public class ViewPostActivity extends AppCompatActivity {
         like.put("viewer", String.valueOf(Integer.parseInt(viewer)+1));
         mDatabase.child("view").child(post_id).updateChildren(like);
 
-        post_nickname.setText(mnickname);
-        post_title.setText(mtitle);
-        post_subject.setText(msubject);
-        post_desc.setText(mdesc);
+        post_nickname.setText(mNickName);
+        post_title.setText(mTitle);
+        post_subject.setText(mSubject);
+        post_desc.setText(mDesc);
         post_rating.setRating(Float.parseFloat(num_star));
-        post_date.setText(mdate);
+        post_date.setText(mDate);
 
         if(getIntent().getStringExtra("post_profile_link") != null && !getIntent().getStringExtra("post_profile_link").equals("")){
             Picasso.with(getApplicationContext()).load(getIntent().getStringExtra("post_profile_link")).fit().centerCrop().into(image_icon);
@@ -100,15 +100,14 @@ public class ViewPostActivity extends AppCompatActivity {
                 intent.putExtra("subjectSelect", subject_id);
                 intent.putExtra("post_rating", num_star);
                 intent.putExtra("post_id", post_id);
-                intent.putExtra("post_nickname", mnickname);
-                intent.putExtra("post_title", mtitle);
-                intent.putExtra("post_subject", msubject);
-                intent.putExtra("post_desc", mdesc);
-                intent.putExtra("post_date", mdate);
+                intent.putExtra("post_nickname", mNickName);
+                intent.putExtra("post_title", mTitle);
+                intent.putExtra("post_subject", mSubject);
+                intent.putExtra("post_desc", mDesc);
+                intent.putExtra("post_date", mDate);
                 intent.putExtra("type", type);
                 
                 startActivity(intent);
-//                finish();
             }
         });
 
