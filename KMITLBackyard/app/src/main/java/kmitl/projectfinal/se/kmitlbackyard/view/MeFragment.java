@@ -210,8 +210,6 @@ public class MeFragment extends Fragment {
 
         if (requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data!=null && data.getData()!=null){
             uriProfileImage = data.getData();
-
-
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uriProfileImage);
                 circleImageView2.setImageBitmap(bitmap);

@@ -56,7 +56,7 @@ public class RegisterActivity extends Activity {
 
         btnRegister = findViewById(R.id.btn_register);
         btnBack = findViewById(R.id.btn_back);
-
+        
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

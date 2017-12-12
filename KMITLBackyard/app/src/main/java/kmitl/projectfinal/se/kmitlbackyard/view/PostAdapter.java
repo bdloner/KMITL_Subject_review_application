@@ -61,7 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final PostModel listPost = postLists.get(position);
-        holder.post_nickname.setText(listPost.getUid());
+
         holder.post_title.setText(listPost.getTitle());
         holder.post_subject.setText(listPost.getSubject_id());
         holder.post_desc.setText(listPost.getDescription());
@@ -92,11 +92,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> imgUser = (Map<String, Object>) dataSnapshot.getValue();
-                if (imgUser.get("nickname").toString().equals(listPost.getUid()) && !imgUser.get("profileImgLink").equals("null")) {
-                    if (imgUser.get("profileImgLink").toString() != null || !imgUser.get("profileImgLink").toString().equals("")){
-                        holder.post_profile_link = imgUser.get("profileImgLink").toString();
-                        Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
-                    }
+                if (dataSnapshot.getKey().equals(listPost.getUser_key())) {
+                    holder.post_profile_link = imgUser.get("profileImgLink").toString();
+                    holder.post_nickname.setText(imgUser.get("nickname").toString());
+                    if (!imgUser.get("profileImgLink").equals("null") || imgUser.get("profileImgLink") != null)
+                    Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
                 }
             }
 
