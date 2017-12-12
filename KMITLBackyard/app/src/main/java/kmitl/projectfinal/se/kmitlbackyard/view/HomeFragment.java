@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                                                 "วิชาเลือกทางสาขา", "วิชาเลือกเสรี", "กลุ่มเวลาเรียนของรายวิชา", "วิชาภาษาอังกฤษ",
                                                 "วิชาวิทยาศาสตร์กับคณิตศาสตร์", "วิชาเลือกกลุ่มคุณค่าแห่งชีวิต", "วิชาเลือกลุ่มวิถีแห่งสังคม", "วิชาเลือกกลุ่มศาสตร์แห่งการคิด",
                                                 "วิชาเลือกกลุ่มศิลปะแห่งการจัดการ", "วิชาเลือกกลุ่มภาษาและการสื่อสาร","ทุกหมวดวิชา"};
-    private Spinner spiner_fac, spinner_type;
+    private Spinner spinner_type;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         seach_subject = v.findViewById(R.id.seach_subject);
         search_btn = v.findViewById(R.id.search_btn);
         clearBtn = v.findViewById(R.id.clear_btn);
-        spinner_type = v.findViewById(R.id.spiner_type);
+        spinner_type = v.findViewById(R.id.spinner_type);
 
         adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, listAllType);
         spinner_type.setAdapter(adapter);

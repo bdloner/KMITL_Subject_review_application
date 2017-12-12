@@ -119,13 +119,49 @@
                             tools:layout_editor_absoluteX="8dp"
                             tools:layout_editor_absoluteY="77dp" />
 
+
+                        <RelativeLayout
+                            android:id="@+id/layout_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="16dp"
+                            android:layout_weight=".28"
+                            android:background="@drawable/spinner"
+                            android:orientation="horizontal"
+                            android:layout_alignLeft="@+id/customTextView"
+                            android:layout_alignStart="@+id/customTextView"
+                            android:layout_below="@+id/customTextView"
+                            android:layout_marginBottom="20dp">
+
+                            <Spinner
+                                android:id="@+id/spinner_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="49dp"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginRight="3dp"
+                                android:spinnerMode="dropdown" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/drop" />
+
+                        </RelativeLayout>
+
                         <Button
                             android:id="@+id/engineering_btn"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:layout_alignLeft="@+id/customTextView"
-                            android:layout_alignStart="@+id/customTextView"
-                            android:layout_below="@+id/customTextView"
+                            android:layout_alignLeft="@+id/layout_spinner"
+                            android:layout_alignStart="@+id/layout_spinner"
+                            android:layout_below="@+id/layout_spinner"
                             android:background="@drawable/engineering_btn" />
 
                         <Button
@@ -142,7 +178,7 @@
                             android:layout_height="100dp"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/customTextView"
+                            android:layout_below="@+id/layout_spinner"
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
                             android:background="@drawable/education_btn" />
@@ -201,14 +237,6 @@
                             android:layout_alignStart="@+id/agriculture_btn"
                             android:layout_below="@+id/agriculture_btn"
                             android:background="@drawable/nano_techno_btn"/>
-
-                        <Spinner
-                            android:id="@+id/spiner_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_above="@+id/engineering_btn"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" />
 
                         <Button
                             android:id="@+id/production_inno_btn"
