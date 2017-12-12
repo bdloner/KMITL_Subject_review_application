@@ -28,7 +28,11 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
     ListView listView;
     EditText editText;
     DatabaseReference databaseReference;
-    String fac;
+    String fac, type;
+    private String[] listAllType = new String[]{"รายวิชาทั่วไป (ทุกสาขา&ทุกชั้นปี)", "วิชาเลือกกลุ่มวิชาภาษา", "วิชาเลือกกลุ่มวิชามนุษย์ศาสตร์", "วิชาเลือกกลุ่มวิชาสังคมศาสตร์", "วิชาทั่วไปกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์",
+            "วิชาเลือกทางสาขา", "วิชาเลือกเสรี", "กลุ่มเวลาเรียนของรายวิชา", "วิชาภาษาอังกฤษ",
+            "วิชาวิทยาศาสตร์กับคณิตศาสตร์", "วิชาเลือกกลุ่มคุณค่าแห่งชีวิต", "วิชาเลือกลุ่มวิถีแห่งสังคม", "วิชาเลือกกลุ่มศาสตร์แห่งการคิด",
+            "วิชาเลือกกลุ่มศิลปะแห่งการจัดการ", "วิชาเลือกกลุ่มภาษาและการสื่อสาร","ทุกหมวดวิชา"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         editText = findViewById(R.id.txt_search);
         listView.setOnItemClickListener(this);
         fac = getIntent().getStringExtra("fac");
+        type = getIntent().getStringExtra("type");
         initList();
         getSupportActionBar().setTitle(fac);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -48,13 +53,28 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).getChildren();
-                for (DataSnapshot child: children){
-                    String course_name = String.valueOf(child.child("course_name").getValue());
-                    String course_id = String.valueOf(child.getKey());
-                    listItems.add(course_id + " " + course_name);
+                if (!type.equals("ทุกหมวดวิชา")){
+                    Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).child(type).getChildren();
+                    for (DataSnapshot child: children){
+                        String course_name = String.valueOf(child.child("course_name").getValue());
+                        String course_id = String.valueOf(child.getKey());
+                        listItems.add(course_id + " " + course_name);
+                    }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
+                else {
+                    for (String type1: listAllType){
+                        Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).child(type1).getChildren();
+                        for (DataSnapshot child: children){
+                            String course_name = String.valueOf(child.child("course_name").getValue());
+                            String course_id = String.valueOf(child.getKey());
+                            listItems.add(course_id + " " + course_name);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+
+                }
+
             }
 
             @Override

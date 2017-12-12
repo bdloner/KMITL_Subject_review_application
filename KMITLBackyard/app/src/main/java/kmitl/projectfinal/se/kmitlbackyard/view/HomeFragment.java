@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,11 +37,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private AutoCompleteTextView seach_subject;
     private ArrayAdapter<String> adapter;
     private DatabaseReference databaseReference;
-    private String value;
+    private String value, fac_spin, type_spin;
     private ArrayList<String> listItems = new ArrayList<String>();
     private String[] listAllFacs = new String[]{"Engineering", "Architecture", "Education", "Agricultural_techno",
                                                 "Science", "Agriculture", "It", "International", "Nano_techno", "Production_inno",
                                                 "Management", "Inter_flight", "Liberal_arts"};
+    private String[] listAllType = new String[]{"รายวิชาทั่วไป (ทุกสาขา&ทุกชั้นปี)", "วิชาเลือกกลุ่มวิชาภาษา", "วิชาเลือกกลุ่มวิชามนุษย์ศาสตร์", "วิชาเลือกกลุ่มวิชาสังคมศาสตร์", "วิชาทั่วไปกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์",
+                                                "วิชาเลือกทางสาขา", "วิชาเลือกเสรี", "กลุ่มเวลาเรียนของรายวิชา", "วิชาภาษาอังกฤษ",
+                                                "วิชาวิทยาศาสตร์กับคณิตศาสตร์", "วิชาเลือกกลุ่มคุณค่าแห่งชีวิต", "วิชาเลือกลุ่มวิถีแห่งสังคม", "วิชาเลือกกลุ่มศาสตร์แห่งการคิด",
+                                                "วิชาเลือกกลุ่มศิลปะแห่งการจัดการ", "วิชาเลือกกลุ่มภาษาและการสื่อสาร","ทุกหมวดวิชา"};
+    private Spinner spiner_fac, spinner_type;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +69,71 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         seach_subject = v.findViewById(R.id.seach_subject);
         search_btn = v.findViewById(R.id.search_btn);
         clearBtn = v.findViewById(R.id.clear_btn);
+        spinner_type = v.findViewById(R.id.spiner_type);
+
+        adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, listAllType);
+        spinner_type.setAdapter(adapter);
+        spinner_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position)
+                {
+                    case 0:
+                        type_spin = "รายวิชาทั่วไป (ทุกสาขา&ทุกชั้นปี)";
+                        break;
+                    case 1:
+                        type_spin = "วิชาเลือกกลุ่มวิชาภาษา";
+                        break;
+                    case 2:
+                        type_spin = "วิชาเลือกกลุ่มวิชามนุษย์ศาสตร์";
+                        break;
+                    case 3:
+                        type_spin = "วิชาเลือกกลุ่มวิชาสังคมศาสตร์";
+                        break;
+                    case 4:
+                        type_spin = "วิชาทั่วไปกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์";
+                        break;
+                    case 5:
+                        type_spin = "วิชาเลือกทางสาขา";
+                        break;
+                    case 6:
+                        type_spin = "วิชาเลือกเสรี";
+                        break;
+                    case 7:
+                        type_spin = "กลุ่มเวลาเรียนของรายวิชา";
+                        break;
+                    case 8:
+                        type_spin = "วิชาภาษาอังกฤษ";
+                        break;
+                    case 9:
+                        type_spin = "วิชาวิทยาศาสตร์กับคณิตศาสตร์";
+                        break;
+                    case 10:
+                        type_spin = "วิชาเลือกกลุ่มคุณค่าแห่งชีวิต";
+                        break;
+                    case 11:
+                        type_spin = "วิชาเลือกลุ่มวิถีแห่งสังคม";
+                        break;
+                    case 12:
+                        type_spin = "วิชาเลือกกลุ่มศาสตร์แห่งการคิด";
+                        break;
+                    case 13:
+                        type_spin = "วิชาเลือกกลุ่มศิลปะแห่งการจัดการ";
+                        break;
+                    case 14:
+                        type_spin = "วิชาเลือกกลุ่มภาษาและการสื่อสาร";
+                        break;
+                    case 15:
+                        type_spin = "ทุกหมวดวิชา";
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         adapter = new ArrayAdapter(getContext(), R.layout.list_item, R.id.txtItem, listItems);
         seach_subject.setAdapter(adapter);
@@ -96,14 +169,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (String fac : listAllFacs){
-                    Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).getChildren();
-                    for (DataSnapshot child: children){
-                        String course_name = String.valueOf(child.child("course_name").getValue());
-                        String course_id = String.valueOf(child.getKey());
-                        listItems.add(course_id + " " + course_name);
-
+                    for  (String type: listAllType){
+                        Iterable<DataSnapshot> children = dataSnapshot.child("subject").child(fac).child(type).getChildren();
+                        for (DataSnapshot child: children){
+                            String course_name = String.valueOf(child.child("course_name").getValue());
+                            String course_id = String.valueOf(child.getKey());
+                            if (listItems.indexOf(course_id + " " + course_name) == -1){
+                                listItems.add(course_id + " " + course_name);
+                            }
+                        }
                     }
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -135,8 +212,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
 
         Intent intent = new Intent(getActivity(), ListSubjectActivity.class);
-        Intent intent2 = new Intent(getActivity(), SubjectPostActivity.class);
-
+        Intent intent2  = new Intent(getActivity(), SubjectPostActivity.class);
+        intent.putExtra("type", type_spin);
         switch (view.getId()){
 
             case R.id.engineering_btn:
