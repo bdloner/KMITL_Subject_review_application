@@ -48,7 +48,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final CommentModel listComment = itemList.get(position);
         holder.comment_desc.setText(listComment.getContent());
-        holder.comment_nickname.setText(listComment.getUid());
         if(user.getUid().equals(listComment.getUser_key())){
             holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                 @Override
@@ -66,7 +65,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Map<String, Object> imgUser = (Map<String, Object>) dataSnapshot.getValue();
-                if (imgUser.get("nickname").toString().equals(listComment.getUid()) && !imgUser.get("profileImgLink").equals("null")) {
+                if (dataSnapshot.getKey().equals(listComment.getUser_key())) {
+                    holder.comment_nickname.setText(imgUser.get("nickname").toString());
                     if (imgUser.get("profileImgLink").toString() != null || !imgUser.get("profileImgLink").toString().equals("")){
                         Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
                     }

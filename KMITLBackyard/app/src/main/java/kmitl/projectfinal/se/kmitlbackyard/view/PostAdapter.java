@@ -95,8 +95,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 if (dataSnapshot.getKey().equals(listPost.getUser_key())) {
                     holder.post_profile_link = imgUser.get("profileImgLink").toString();
                     holder.post_nickname.setText(imgUser.get("nickname").toString());
-                    if (!imgUser.get("profileImgLink").equals("null") || imgUser.get("profileImgLink") != null)
-                    Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
+                    if (!imgUser.get("profileImgLink").equals("null") || imgUser.get("profileImgLink") != null){
+                        Picasso.with(holder.context).load(imgUser.get("profileImgLink").toString()).fit().centerCrop().into(holder.image_icon);
+                    }
                 }
             }
 
