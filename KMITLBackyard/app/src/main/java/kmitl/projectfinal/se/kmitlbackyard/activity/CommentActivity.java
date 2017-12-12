@@ -154,12 +154,12 @@ public class CommentActivity extends Activity{
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, Object> dataset = (Map<String, Object>) dataSnapshot.getValue();
+                Map<String, Object> dataSet = (Map<String, Object>) dataSnapshot.getValue();
                 if(dataSnapshot.getKey().equals(user.getUid())){
-                    if (dataset.get("role").toString().equals("student")){
+                    if (dataSet.get("role").toString().equals("student")){
                         frameLayout5.setVisibility(View.VISIBLE);
                     }
-                    else if (dataset.get("role").toString().equals("teacher")){
+                    else if (dataSet.get("role").toString().equals("teacher")){
                         frameLayout5.setVisibility(View.INVISIBLE);
                     }
                 }
@@ -198,6 +198,7 @@ public class CommentActivity extends Activity{
         value = "";
         addComment.setText("");
     }
+
     private String getCurrentTime(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();

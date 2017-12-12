@@ -1,7 +1,8 @@
-package kmitl.projectfinal.se.kmitlbackyard.activity;
+package kmitl.projectfinal.se.kmitlbackyard;
 
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
+import android.widget.Button;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -11,7 +12,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import kmitl.projectfinal.se.kmitlbackyard.R;
+import kmitl.projectfinal.se.kmitlbackyard.activity.LoginActivity;
 
 public class LoginActivityTest {
 
@@ -37,6 +38,12 @@ public class LoginActivityTest {
         for (View view: views) {
             Assert.assertNotNull(view);
         }
+    }
+
+    @Test
+    public void testLogin() {
+        Button btn_login = mLoginActivity.findViewById(R.id.btn_login);
+        btn_login.performClick();
     }
 
     @After

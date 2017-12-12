@@ -28,6 +28,8 @@ public class PostModel {
         this.type = type;
     }
 
+    public PostModel() {}
+
     public String getType() {
         return type;
     }

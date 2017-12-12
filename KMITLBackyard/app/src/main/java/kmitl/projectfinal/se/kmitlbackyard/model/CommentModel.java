@@ -16,6 +16,8 @@ public class CommentModel {
         this.user_key = user_key;
     }
 
+    public CommentModel() {}
+
     public String getUser_key() {
         return user_key;
     }

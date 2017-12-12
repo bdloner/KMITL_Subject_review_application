@@ -19,6 +19,7 @@ import kmitl.projectfinal.se.kmitlbackyard.view.NewsFragment;
 import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class MainActivity extends AppCompatActivity {
+
     private FirebaseUser firebaseAuth;
     private String type;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
