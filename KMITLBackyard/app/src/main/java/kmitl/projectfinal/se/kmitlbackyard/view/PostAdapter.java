@@ -45,7 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private FirebaseUser user;
     private Context context;
     private boolean mProcessLike =false;
-    List<PostModel> postLists;
+    private List<PostModel> postLists;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

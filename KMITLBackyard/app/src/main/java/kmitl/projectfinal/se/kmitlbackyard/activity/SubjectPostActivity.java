@@ -36,7 +36,7 @@ public class SubjectPostActivity extends AppCompatActivity {
     private Button writeReviewBtn;
 
     private String subjectSelect = "";
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private TextView post_nickname;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;

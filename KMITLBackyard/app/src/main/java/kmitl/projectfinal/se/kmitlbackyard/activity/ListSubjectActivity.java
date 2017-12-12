@@ -23,12 +23,11 @@ import java.util.ArrayList;
 import kmitl.projectfinal.se.kmitlbackyard.R;
 
 public class ListSubjectActivity extends AppCompatActivity implements  AdapterView.OnItemClickListener {
-    ArrayList<String> listItems;
-    ArrayAdapter<String> adapter;
-    ListView listView;
-    EditText editText;
-    DatabaseReference databaseReference;
-    String fac, type;
+    private ArrayList<String> listItems;
+    private ArrayAdapter<String> adapter;
+    private ListView listView;
+    private DatabaseReference databaseReference;
+    private String fac, type;
     private String[] listAllType = new String[]{"รายวิชาทั่วไป (ทุกสาขา&ทุกชั้นปี)", "วิชาเลือกกลุ่มวิชาภาษา", "วิชาเลือกกลุ่มวิชามนุษย์ศาสตร์", "วิชาเลือกกลุ่มวิชาสังคมศาสตร์", "วิชาทั่วไปกลุ่มวิชาวิทยาศาสตร์และคณิตศาสตร์",
             "วิชาเลือกทางสาขา", "วิชาเลือกเสรี", "กลุ่มเวลาเรียนของรายวิชา", "วิชาภาษาอังกฤษ",
             "วิชาวิทยาศาสตร์กับคณิตศาสตร์", "วิชาเลือกกลุ่มคุณค่าแห่งชีวิต", "วิชาเลือกลุ่มวิถีแห่งสังคม", "วิชาเลือกกลุ่มศาสตร์แห่งการคิด",
@@ -42,7 +41,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = findViewById(R.id.list_view);
-        editText = findViewById(R.id.txt_search);
         listView.setOnItemClickListener(this);
         fac = getIntent().getStringExtra("fac");
         type = getIntent().getStringExtra("type");
@@ -79,22 +77,6 @@ public class ListSubjectActivity extends AppCompatActivity implements  AdapterVi
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (ListSubjectActivity.this).adapter.getFilter().filter(s);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
 
             }
         });
